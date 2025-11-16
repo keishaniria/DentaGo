@@ -6,11 +6,17 @@ use App\Http\Controllers\dokter\LaporanController;
 use App\Http\Controllers\Dokter\PasienController;
 use App\Http\Controllers\Dokter\PemeriksaanController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Pasien\DashboardController;
+use App\Http\Controllers\Pasien\ReservasiController;
+use App\Http\Controllers\Pasien\JadwalpemeriksaanController;
+use App\Http\Controllers\Pasien\RiwayatpemeriksaanController;
+use App\Http\Controllers\Pasien\ProfilController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 Route::get('/dokter/dashboard', [DashboardController::class, 'index'])
     ->name('dokter.dashboard');
 
@@ -33,3 +39,22 @@ Route::prefix('dokter')->group(function () {
     Route::get('/laporan/{id}', [LaporanController::class, 'show'])->name('dokter.laporan.show');
     Route::get('/laporan/export', [LaporanController::class, 'exportExcel'])->name('dokter.laporan.export');
 });
+=======
+Route::get('/pasien/dashboard', [DashboardController::class, 'index'])
+   ->name('pasien.dashboard');
+
+Route::get('/pasien/reservasi', [ReservasiController::class, 'index'])
+   ->name('pasien.reservasi');
+
+Route::get('/pasien/jadwalpemeriksaan', [JadwalpemeriksaanController::class, 'index'])
+   ->name('pasien.jadwalpemeriksaan');
+
+Route::get('/pasien/riwayatpemeriksaan', [RiwayatpemeriksaanController::class, 'index'])
+   ->name('pasien.riwayatpemeriksaan');
+
+Route::get('/pasien/profilsaya', [ProfilController::class, 'index'])
+   ->name('pasien.profilesaya');
+
+Route::get('/edit-profil', [Profilcontroller::class, 'edit'])
+    ->name('pasien.editprofil');
+>>>>>>> a05e249da126686314d6e137d5d159d6466baf41
