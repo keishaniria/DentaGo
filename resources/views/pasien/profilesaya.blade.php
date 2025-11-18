@@ -23,6 +23,7 @@
 					</div>
 
 					<div class="col-md-8">
+
 						<div class="mb-3">
 							<label class="text-secondary small fw-semibold">Nama</label>
 							<div class="fw-medium fs-6 text-dark">Kamaya Nadeleine</div>
@@ -41,6 +42,11 @@
 						<div class="mb-3">
 							<label class="text-secondary small fw-semibold">Alamat</label>
 							<div class="fw-medium fs-6 text-dark">Jl. Bintara No.12, Bekasi</div>
+						</div>
+
+                        <div class="mb-3">
+							<label class="text-secondary small fw-semibold">Email</label>
+							<div class="fw-medium fs-6 text-dark">kamayanadeleine@gmail.com</div>
 						</div>
 
 						<div class="mb-3">

@@ -94,15 +94,16 @@
 			border-radius: 50%;
 			object-fit: cover;
 			border: 2px solid #ddd;
-			transition: all 0.3s ease;
-		}
-		.profile img:hover {
-			border-color: #4BC590;
-			transform: scale(1.05);
 		}
 		.profile span {
 			font-weight: 500;
 			color: #333;
+		}
+		.profile-name {
+			text-decoration: none;
+			color: inherit;
+			font-family: 'Poppins', sans-serif;
+			cursor: pointer;
 		}
 
 		.content {
@@ -189,12 +190,9 @@
 	<nav class="navbar-custom">
 		<div class="dropdown profile">
 			<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil">
-			<span class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+			<a href="{{ route('pasien.profilesaya') }}" class="profile-name"> 
 				Kamaya Nadeleine
-			</span>
-			<ul class="dropdown-menu dropdown-menu-end">
-				<li><a class="dropdown-item" href="{{ route('pasien.profilesaya') }}">Profil Saya</a></li>
-			</ul>
+	        </a>
 		</div>
 	</nav>
 

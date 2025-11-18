@@ -41,6 +41,12 @@
 						<textarea class="form-control" rows="3">Jl. Bintara No.12, Bekasi</textarea>
 					</div>
 
+
+					<div class="mb-3">
+						<label class="form-label">Email</label>
+						<input type="email" class="form-control" value="kamayanadeleine@gmail.com">
+					</div>
+
 					<div class="mb-3">
 						<label class="form-label">Nomor Telepon</label>
 						<input type="text" class="form-control" value="+62 812-3456-7890">

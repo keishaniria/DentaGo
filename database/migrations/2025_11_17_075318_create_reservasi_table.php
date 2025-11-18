@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pasien', function (Blueprint $table) {
+        Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_pasien', 100);
-            $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan'])->nullable();
-            $table->date('tanggal_lahir')->nullable();
-            $table->text('alamat');
-            $table->string('no_telepon', 20);
-            $table->string('foto_pasien')->nullable();
+            $table->unsignedBigInteger('id_pasien');
+            $table->unsignedBigInteger('id_dokter')->nullable();
+            $table->date('tanggal_reservasi');
+            $table->time('jam');
+            $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal']);
             $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
+            $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
+            $table->foreign('id_dokter')->references('id')->on('dokter_gigi')->onDelete('cascade');
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pasien');
+        Schema::dropIfExists('reservasi');
     }
 };
