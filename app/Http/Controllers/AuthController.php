@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class AuthController extends Controller
 {
     //
@@ -17,20 +18,23 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
+
+        return redirect()->route('login.show')->with('success', 'Registrasi berhasil! Silakan login.');
+
     }
 
     public function showSignin(){
         return view('sign-in');
     }
     public function submitSignin(Request $request){
-        $username = $request->input('username');
+        $email = $request->input('email');
         $password = $request->input('password');
 
-        $user = User::where('username', $username)->first();
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
             return back()->withErrors([
-                'username' => 'Username tidak ditemukan atau akun tidak aktif',
+                'email' => 'Email tidak ditemukan',
             ]);
         }
 
@@ -45,12 +49,21 @@ class AuthController extends Controller
 
         // redirect sesuai role
         if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.layout.dashboard');
         } elseif ($user->role === 'dokter') {
             return redirect()->route('dokter.dashboard');
         } elseif ($user->role === 'pasien') {
             return redirect()->route('pasien.dashboard');
         }
         return redirect()->route('dashboard');
+    }
+
+    public function logout(Request $request) {
+        Auth::logout(); // Hapus sesi login user
+
+        $request->session()->invalidate(); // Invalidate session
+        $request->session()->regenerateToken(); // Regenerate CSRF token
+
+        return redirect()->route('login.show');
     }
 }

@@ -182,7 +182,18 @@
 			<a href="{{ route('pasien.dashboard') }}" class="{{ request()->routeIs('pasien.dashboard') ? 'active' : '' }}"><i class="bi bi-house-door"></i>Dashboard</a>
 		    <a href="{{ route('pasien.reservasi') }}" class="{{ request()->routeIs('pasien.reservasi') ? 'active' : '' }}"><i class="bi bi-clipboard-plus"></i>Buat Reservasi</a>
 		    <a href="{{ route('pasien.riwayatpemeriksaan') }}" class="{{ request()->routeIs('pasien.riwayatpemeriksaan') ? 'active' : '' }}"><i class="bi bi-clock-history"></i>Riwayat Pemeriksaan</a>
-		    <a href="#" class="logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+		    <li>
+            <a href="{{ route('logout') }}" class="logout"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </a>
+        </li>
+ 
+
+    <!-- Form logout HARUS di luar <li> -->
+		<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+			@csrf
+		</form>
 		</ul>
 	</div>
 

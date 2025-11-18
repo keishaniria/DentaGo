@@ -1,36 +1,43 @@
 <?php
 
-use App\Http\Controllers\Dokter\DashboardController;
-use App\Http\Controllers\Dokter\JadwalPemeriksaanController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Dokter\DashboardController as DokterDashboardController;
+use App\Http\Controllers\Dokter\JadwalPemeriksaanController as JadwalPemeriksaanDokterController;
 use App\Http\Controllers\dokter\LaporanController;
 use App\Http\Controllers\Dokter\PasienController;
 use App\Http\Controllers\Dokter\PemeriksaanController;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use App\Http\Controllers\AdminController;
-=======
-use App\Http\Controllers\Pasien\DashboardController;
+use App\Http\Controllers\Pasien\DashboardController as PasienDashboardController;
 use App\Http\Controllers\Pasien\ReservasiController;
-use App\Http\Controllers\Pasien\JadwalpemeriksaanController;
+use App\Http\Controllers\Pasien\JadwalpemeriksaanController as JadwalPemeriksaanPasienController;
 use App\Http\Controllers\Pasien\RiwayatpemeriksaanController;
 use App\Http\Controllers\Pasien\ProfilController;
->>>>>>> 5cc93a23b9179e61c7e6c075f0e5434615d2e59f
+use App\Http\Controllers\AuthController;
+
 
 Route::get('/', function () {
     return view('sign-in');
 });
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-Route::get('/dokter/dashboard', [DashboardController::class, 'index'])
+Route::get('/sign-up', [AuthController::class, 'showSignup'])->name('signup.show');
+Route::post('/sign-up/submit', [AuthController::class, 'submitSignup'])->name('signup.submit');
+
+Route::get('/sign-in', [AuthController::class, 'showSignin'])->name('login.show');
+Route::post('/sign-in/submit', [AuthController::class, 'submitSignin'])->name('login.submit');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/dokter/dashboard', [DokterDashboardController::class, 'index'])
     ->name('dokter.dashboard');
 
+Route::prefix('admin')->group(function () {
+   Route::get('/dashboard/dashboard', [AdminController::class, 'index'])->name('admin.layout.dashboard');
+});
 // Halaman Jadwal Pemeriksaan Dokter
 Route::prefix('dokter')->group(function () {
-    Route::get('/jadwal', [JadwalPemeriksaanController::class, 'index'])->name('dokter.jadwal.index');
-    Route::post('/jadwal/update-status/{id}', [JadwalPemeriksaanController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
-    Route::delete('/jadwal/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('dokter.jadwal.destroy');
+    Route::get('/jadwal', [JadwalPemeriksaanDokterController::class, 'index'])->name('dokter.jadwal.index');
+    Route::post('/jadwal/update-status/{id}', [JadwalPemeriksaanDokterController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
+    Route::delete('/jadwal/{id}', [JadwalPemeriksaanDokterController::class, 'destroy'])->name('dokter.jadwal.destroy');
 
     Route::get('/pasien', [PasienController::class, 'index'])->name('dokter.pasien.index');
     Route::get('pasien/{id}', [PasienController::class, 'show'])->name('dokter.pasien.show');
@@ -45,14 +52,13 @@ Route::prefix('dokter')->group(function () {
     Route::get('/laporan/{id}', [LaporanController::class, 'show'])->name('dokter.laporan.show');
     Route::get('/laporan/export', [LaporanController::class, 'exportExcel'])->name('dokter.laporan.export');
 });
-=======
-Route::get('/pasien/dashboard', [DashboardController::class, 'index'])
+Route::get('/pasien/dashboard', [PasienDashboardController::class, 'index'])
    ->name('pasien.dashboard');
 
 Route::get('/pasien/reservasi', [ReservasiController::class, 'index'])
    ->name('pasien.reservasi');
 
-Route::get('/pasien/jadwalpemeriksaan', [JadwalpemeriksaanController::class, 'index'])
+Route::get('/pasien/jadwalpemeriksaan', [JadwalPemeriksaanPasienController::class, 'index'])
    ->name('pasien.jadwalpemeriksaan');
 
 Route::get('/pasien/riwayatpemeriksaan', [RiwayatpemeriksaanController::class, 'index'])
@@ -63,5 +69,3 @@ Route::get('/pasien/profilsaya', [ProfilController::class, 'index'])
 
 Route::get('/edit-profil', [Profilcontroller::class, 'edit'])
     ->name('pasien.editprofil');
->>>>>>> a05e249da126686314d6e137d5d159d6466baf41
->>>>>>> 5cc93a23b9179e61c7e6c075f0e5434615d2e59f

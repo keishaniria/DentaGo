@@ -58,18 +58,21 @@
                     <h2>Halo!</h2>
                     <p>Senang melihatmu kembali. Silakan login ya!</p>
                 </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Alamat email">
-                </div>
-                <div class="input-group mb-4">
-                    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password">
-                </div>
-                <div class="input-group mb-3">
-                    <button class="btn btn-lg w-100 fs-6" style="background-color:#bce0d1;">Masuk</button>
-                </div>
-                <div class="input-group mb-3">
-                    <small> Baru di sini? <a href="">Daftar dulu, yuk!</a> Biar reservasi jadi lebih mudah.</small>
-                </div>
+                <form action="{{ route('login.submit') }}" method="POST">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input type="text" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Alamat email">
+                    </div>
+                    <div class="input-group mb-4">
+                        <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password">
+                    </div>
+                    <div class="input-group mb-3">
+                        <button class="btn btn-lg w-100 fs-6" style="background-color:#bce0d1;">Masuk</button>
+                    </div>
+                    <div class="input-group mb-3">
+                        <small> Baru di sini? <a href="/sign-up">Daftar dulu, yuk!</a> Biar reservasi jadi lebih mudah.</small>
+                    </div>
+                </form>
             </div>
         </div>
     

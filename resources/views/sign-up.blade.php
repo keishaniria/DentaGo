@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Sign in to DentaGo')
+@section('title', 'Sign up to DentaGo')
 
 @section('content')
 <style>
@@ -56,20 +56,26 @@
             <div class="row align-items-center">
                 <div class="header-text mb-4">
                     <h2>Halo!</h2>
-                    <p>Senang melihatmu kembali. Silakan login ya!</p>
+                    <p>Segera daftarkan dirimu agar reservasi menjadi mudah.</p>
                 </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Alamat email">
-                </div>
-                <div class="input-group mb-4">
-                    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password">
-                </div>
-                <div class="input-group mb-3">
-                    <button class="btn btn-lg w-100 fs-6" style="background-color:#bce0d1;">Daftar</button>
-                </div>
-                <div class="input-group mb-3">
-                    <small>Sudah punya akun? <a href="">Masuk</a> di sini ya!</small>
-                </div>
+                <form action="{{ route('signup.submit') }}" method="POST">
+                    @csrf
+                    <div class="input-group mb-4">
+                        <input type="text" name="username" class="form-control form-control-lg bg-light fs-6" placeholder="Nama lengkap">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Alamat email">
+                    </div>
+                    <div class="input-group mb-4">
+                        <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password">
+                    </div>
+                    <div class="input-group mb-3">
+                        <button class="btn btn-lg w-100 fs-6" style="background-color:#bce0d1;">Daftar</button>
+                    </div>
+                    <div class="input-group mb-3">
+                        <small>Sudah punya akun? <a href="">Masuk</a> di sini ya!</small>
+                    </div>
+                </form>
             </div>
         </div>
     

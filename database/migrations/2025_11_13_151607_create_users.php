@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('no_telp')->nullable();
-            $table->enum('role', ['admin', 'asesor', 'peserta'])->default('peserta');
+            $table->enum('role', ['admin', 'dokter', 'pasien'])->default('pasien');
             $table->timestamps();
         });
     }

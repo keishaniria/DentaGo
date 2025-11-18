@@ -188,10 +188,15 @@
                 <a href="#" class="">
                     <i class="bi bi-people me-2"></i> Data Pasien
                 </a>
-                <a href="#" class="logout">
-                    <i class="bi bi-box-arrow-right me-2"></i> Logout
-                </a>
+                <a href="{{ route('logout') }}" class="logout"
+				onclick="alert('Logout diklik'); event.preventDefault(); document.getElementById('logout-form').submit();">
+					Logout
+				</a>
+
             </li>
+			<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+				@csrf
+			</form>
         </div>
     </aside>
 

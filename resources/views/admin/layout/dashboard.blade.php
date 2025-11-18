@@ -4,7 +4,7 @@
 
 @section('content')
     <style>
-        body {
+		body {
 			font-family: 'Poppins', sans-serif;
 			background-color: #F4F6F9;
 			margin: 0;
@@ -73,12 +73,11 @@
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
-			padding: 10px 10px;
+			padding: 0 30px;
 			position: sticky;
 			top: 0;
 			z-index: 99;
 		}
-
 		.profile {
 			display: flex;
 			align-items: center;
@@ -103,7 +102,7 @@
 		}
 
 		.content {
-			margin-left: 100px;
+			margin-left: 250px;
 			padding: 40px 50px;
 			background-color: #f9fbfc;
 			min-height: 100vh;
@@ -143,7 +142,7 @@
 		}
 		.card-dashboard {
 			flex: 1;
-			min-width: 200px;
+			min-width: 250px;
 			background-color: #ffffff;
 			border-radius: 25px;
 			text-align: center;
@@ -170,70 +169,40 @@
 			font-size: 14px;
 			margin: 0;
 		}
-    </style>
+	</style>
+</head>
+<body>
+	<div class="sidebar">
+		<div class="brand">DentaGo</div>
+		<ul class="nav">
+			<a href="{{ route('pasien.dashboard') }}" class="{{ request()->routeIs('pasien.dashboard') ? 'active' : '' }}"><i class="bi bi-house-door"></i>Dashboard</a>
+		    <a href="{{ route('pasien.reservasi') }}" class="{{ request()->routeIs('pasien.reservasi') ? 'active' : '' }}"><i class="bi bi-clipboard-plus"></i>Buat Reservasi</a>
+		    <a href="{{ route('pasien.riwayatpemeriksaan') }}" class="{{ request()->routeIs('pasien.riwayatpemeriksaan') ? 'active' : '' }}"><i class="bi bi-clock-history"></i>Riwayat Pemeriksaan</a>
+		    <li>
+            <a href="{{ route('logout') }}" class="logout"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </a>
+        </li>
+ 
 
+    <!-- Form logout HARUS di luar <li> -->
+		<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+			@csrf
+		</form>
+		</ul>
+	</div>
 
-    <aside class="sidebar">
-        <div>
-            <p class="brand">DentaGo</p>
-        </div>
-        <div class="nav">
-            <li>
-                <a href="#" class="active">
-                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                </a>
-                <a href="#" class="">
-                    <i class="bi bi-person"></i> Data Dokter
-                </a>
-                <a href="#" class="">
-                    <i class="bi bi-people me-2"></i> Data Pasien
-                </a>
-                <a href="#" class="logout">
-                    <i class="bi bi-box-arrow-right me-2"></i> Logout
-                </a>
-            </li>
-        </div>
-    </aside>
-
-    <nav class="navbar-custom">
-		<div class="profile">
-			<span>Admin</span>
-			<img src="" alt="profile">
+	<nav class="navbar-custom">
+		<div class="dropdown profile">
+			<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil">
+			<span class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+				Kamaya Nadeleine
+			</span>
+			<ul class="dropdown-menu dropdown-menu-end">
+				<li><a class="dropdown-item" href="{{ route('pasien.profilesaya') }}">Profil Saya</a></li>
+			</ul>
 		</div>
 	</nav>
 
-	<!-- Content -->
-	<div class="content">
-		<h4>Dashboard Overview</h4>
-
-		<div class="card-container">
-			<div class="card-dashboard">
-				<i class="bi bi-person-badge"></i>
-				<h5>Data Dokter</h5>
-				<p><strong>12</strong> Terdaftar</p>
-			</div>
-
-			<div class="card-dashboard">
-				<i class="bi bi-people"></i>
-				<h5>Data Pasien</h5>
-				<p><strong>48</strong> Aktif</p>
-			</div>
-
-			<div class="card-dashboard">
-				<i class="bi bi-calendar-check"></i>
-				<h5>Janji Temu</h5>
-				<p><strong>5</strong> Hari Ini</p>
-			</div>
-
-			<div class="card-dashboard">
-				<i class="bi bi-bar-chart"></i>
-				<h5>Statistik</h5>
-				<p><strong>80%</strong> Produktivitas</p>
-			</div>
-		</div>
-    </div>
-
-    <div>
-        
-    </div>
 @endsection
