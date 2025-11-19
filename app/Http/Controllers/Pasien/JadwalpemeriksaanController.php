@@ -9,13 +9,26 @@ use App\Models\pasien\reservasi;
 
 class JadwalpemeriksaanController extends Controller
 {
-    public function index() {
-        $reservasi = Reservasi::with('pasien')->get();
-        return view('pasien.jadwalpemeriksaan', compact('reservasi'));
-    }
-    
-    public function show($id) {
-        $reservasi = Reservasi::with('pasien')->findOrFail($id);
-        return view('pasien.detailreservasi', compact('reservasi'));
-    }
+   public function index() {
+      $user = auth()->user();
+      $pasien = $user->pasien;
+
+      $reservasi = Reservasi::with('pasien')
+         ->where('id_pasien', $pasien->id)
+         ->orderBy('tanggal_reservasi', 'desc')
+         ->get();
+
+      return view('pasien.jadwalpemeriksaan', compact('reservasi'));
+   }
+
+   public function show($id) {
+      $user = auth()->user();
+      $pasien = $user->pasien;
+      
+      $reservasi = Reservasi::with('pasien')
+         ->where('id_pasien', $pasien->id)
+         ->findOrFail($id);
+
+      return view('pasien.detailreservasi', compact('reservasi'));
+   }
 }

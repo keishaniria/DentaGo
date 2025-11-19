@@ -1,7 +1,8 @@
 <?php
-
 use App\Http\Controllers\Dokter\DashboardController as DokterDashboardController;
 use App\Http\Controllers\Dokter\JadwalPemeriksaanController as DokterJadwalController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Dokter\JadwalPemeriksaanController as JadwalPemeriksaanDokterController;
 use App\Http\Controllers\dokter\LaporanController;
 use App\Http\Controllers\Dokter\PasienController;
 use App\Http\Controllers\Dokter\PemeriksaanController;
@@ -9,21 +10,39 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pasien\DashboardController as PasienDashboardController;
 use App\Http\Controllers\Pasien\ReservasiController;
 use App\Http\Controllers\Pasien\JadwalpemeriksaanController as PasienJadwalController;
+use App\Http\Controllers\Pasien\JadwalpemeriksaanController as JadwalPemeriksaanPasienController;
 use App\Http\Controllers\Pasien\RiwayatpemeriksaanController;
 use App\Http\Controllers\Pasien\ProfilController;
+use App\Http\Controllers\AuthController;
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('sign-in');
 });
+
+Route::get('/sign-up', [AuthController::class, 'showSignup'])->name('signup.show');
+Route::post('/sign-up/submit', [AuthController::class, 'submitSignup'])->name('signup.submit');
+
+Route::get('/sign-in', [AuthController::class, 'showSignin'])->name('login.show');
+Route::post('/sign-in/submit', [AuthController::class, 'submitSignin'])->name('login.submit');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/dokter/dashboard', [DokterDashboardController::class, 'index'])
     ->name('dokter.dashboard');
+
+Route::prefix('admin')->group(function () {
+   Route::get('/dashboard/dashboard', [AdminController::class, 'index'])->name('admin.layout.dashboard');
+});
 
 // Halaman Jadwal Pemeriksaan Dokter
 Route::prefix('dokter')->group(function () {
     Route::get('/jadwal', [DokterJadwalController::class, 'index'])->name('dokter.jadwal.index');
     Route::post('/jadwal/update-status/{id}', [JadwalPemeriksaanController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
     Route::delete('/jadwal/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('dokter.jadwal.destroy');
+    Route::get('/jadwal', [JadwalPemeriksaanDokterController::class, 'index'])->name('dokter.jadwal.index');
+    Route::post('/jadwal/update-status/{id}', [JadwalPemeriksaanDokterController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
+    Route::delete('/jadwal/{id}', [JadwalPemeriksaanDokterController::class, 'destroy'])->name('dokter.jadwal.destroy');
 
     Route::get('/pasien', [PasienController::class, 'index'])->name('dokter.pasien.index');
     Route::get('pasien/{id}', [PasienController::class, 'show'])->name('dokter.pasien.show');
@@ -55,11 +74,13 @@ Route::prefix('pasien')->group(function () {
          ->name('pasien.jadwalpemeriksaan.show');
          
       Route::get('/profilsaya', [ProfilController::class, 'index'])
-         ->name('pasien.profilesaya');
-
-      Route::get('/edit-profil', [ProfilController::class, 'edit'])
+        ->name('pasien.profilesaya');
+      Route::get('/profil/edit', [ProfilController::class, 'edit'])
          ->name('pasien.editprofil');
+      Route::put('/profil/update', [ProfilController::class, 'update'])
+         ->name('pasien.updateprofil');
 
       Route::get('/riwayatpemeriksaan', [RiwayatpemeriksaanController::class, 'index'])
          ->name('pasien.riwayatpemeriksaan');
 });
+

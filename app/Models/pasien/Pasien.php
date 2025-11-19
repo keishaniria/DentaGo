@@ -11,6 +11,7 @@ class Pasien extends Model
     
     protected $table = 'pasien';
     protected $fillable = [
+        'id_user',
         'nama_pasien',
         'jenis_kelamin',
         'tanggal_lahir',
@@ -18,4 +19,8 @@ class Pasien extends Model
         'no_telepon',
         'foto_pasien',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

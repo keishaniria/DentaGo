@@ -6,14 +6,14 @@
 <div class="d-flex justify-content-center align-items-center" style="min-height: 65vh; padding-top: 0;">
 	<div class="bg-white p-5 rounded-4 shadow-sm" style="width: 100%; max-width: 480px;">
 		<h4 class="fw-bold text-dark mb-4 justify-content-center">
-		    <i class="bi bi-clipboard-plus me-2 text-success"></i>Form Reservasi
+		    <i class="bi bi-clipboard-plus me-2 icon-reservasi"></i>Form Reservasi
 	    </h4>
 
 		<form action="{{ route('pasien.reservasi.store') }}" method="POST">
 			@csrf 
 			<div class="mb-3">
-				<label for="nama_pasien" class="form-label fw-semibold text-secondary">Nama</label>
-				<input type="text" class="form-control" id="nama_pasien" name="nama_pasien" placeholder="Masukkan nama lengkap" required>
+				<label class="form-label fw-semibold text-secondary">Nama</label>
+				<input type="text" class="form-control" value="{{ $pasien->nama_pasien }}" readonly>
 			</div>
 			<div class="row g-3 mb-3">
 				<div class="col-md-6">
@@ -26,20 +26,41 @@
 				</div>
 			</div>
 			<div class="mb-3">
-				<label for="alamat" class="form-label fw-semibold text-secondary">Alamat</label>
-				<textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="Masukkan alamat lengkap" required></textarea>
+				<label class="form-label fw-semibold text-secondary">Alamat</label>
+				<textarea class="form-control" rows="3" readonly>{{ $pasien->alamat }}</textarea>
 			</div>
 			<div class="mb-3">
-				<label for="no_telepon" class="form-label fw-semibold text-secondary">Nomor Telepon</label>
-				<input type="tel" pattern="[0-9]{10,13}" class="form-control" id="no_telepon" name="no_telepon" placeholder="08xxxxxxxxxx" required>
+				<label class="form-label fw-semibold text-secondary">Nomor Telepon</label>
+				<input type="text" class="form-control" value="{{ $pasien->no_telepon }}" readonly>
 			</div>
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-success px-4 py-2 fw-semibold shadow-sm rounded-pill">
+				<button type="submit" class="btn-reservasi shadow-sm">
 					Simpan Reservasi
 				</button>
 			</div>
 		</form>
 	</div>
 </div>
+
+<style>
+	.btn-reservasi {
+		background: #bce0d1;
+		color: white;
+		border: none;
+		padding: 10px 26px;
+		border-radius: 50px;
+		font-weight: 600;
+		transition: 0.2s ease;
+	}
+
+	.btn-reservasi:hover {
+		background: #a9cfbf; 
+		color: white;
+	}
+
+	.icon-reservasi {
+		color: #bce0d1;
+	}
+</style>
 @endsection

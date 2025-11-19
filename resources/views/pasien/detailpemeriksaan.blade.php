@@ -3,11 +3,22 @@
 @section('title', 'Detail Pemeriksaan')
 
 @section('content')
+<style>
+    .text-new-green {
+        color: #bce0d1 !important;
+    }
+
+    .icon-new-green {
+        color: #bce0d1 !important;
+    }
+</style>
+
+
 <div class="container-fluid">
 	<div style="opacity: 1; transition: 0.3s ease;">
 		<div class="card shadow-sm border-0 rounded-4 p-4 mx-auto" style="background-coloe: #fff; max-width: 700px;">
-			<h5 class="fw-bold text-success mb-4">
-				<i class="bi bi-info-circle me-2"></i>Detail Pemeriksaan
+			<h5 class="fw-bold text-new-green mb-4">
+				<i class="bi bi-info-circle me-2 icon-new-green"></i>Detail Pemeriksaan
 			</h5>
 
 			<div class="mb-3">

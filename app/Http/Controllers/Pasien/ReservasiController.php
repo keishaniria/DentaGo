@@ -9,26 +9,27 @@ use App\Models\Pasien\Reservasi;
 
 class ReservasiController extends Controller
 {
-    //
     public function index() {
-        return view('pasien.reservasi');
+        $user = auth()->user();
+        $pasien = $user->pasien;
+
+        $reservasi = Reservasi::where('id_pasien', $pasien->id)->orderBy('tanggal_reservasi', 'desc')->get();
+
+        return view('pasien.reservasi', [
+            'pasien' => $pasien,
+            'reservasi' => $reservasi
+        ]);
     }
 
     public function store(Request $request) {
-
         $request->validate([
-            'nama_pasien' => 'required|string|max:100',
-            'alamat' => 'required|string',
-            'tanggal_reservasi' => 'required|date',
+            'tanggal_reservasi' => 'required|date', 
             'jam' => 'required',
-            'no_telepon' => 'required|string|max:20'      
+            'status' => 'nullable|string|in:menunggu,proses,selesai,batal'
         ]);
 
-        $pasien = Pasien::create([
-            'nama_pasien' => $request->nama_pasien,
-            'alamat' => $request->alamat,
-            'no_telepon' => $request->no_telepon
-        ]);
+        $user = auth()->user();
+        $pasien = $user->pasien;
 
         Reservasi::create([
             'id_pasien' => $pasien->id,

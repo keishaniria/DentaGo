@@ -3,9 +3,33 @@
 @section('title', 'Riwayat Pemeriksaan')
 
 @section('content')
+
+<style>
+	.icon-new-green {
+		color: #bce0d1 !important;
+	}
+
+	.btn-outline-new {
+		border: 1.5px solid #bce0d1 !important;
+		color: #bce0d1 !important;
+		background: transparent;
+		transition: 0.2s ease;
+	}
+
+	.btn-outline-new:hover {
+		background: #bce0d1 !important;
+		color: white !important;
+	}
+
+	.table tbody tr:hover {
+		background-color: #f9fbfc;
+		transition: 0.2s ease;
+	}
+</style>
+
 <div class="container-fluid">
 	<h4 class="mb-1">
-		<i class="bi bi-clock-history text-success me-2"></i>Riwayat Pemeriksaan
+		<i class="bi bi-clock-history icon-new-green me-2"></i>Riwayat Pemeriksaan
 	</h4>
 	<p class="text-muted mb-4">Berikut daftar riwayat pemeriksaan gigi yang pernah kamu lakukan.</p>
 
@@ -27,7 +51,7 @@
 						<td>Karies Sedang</td>
 						<td>Penambalan</td>
 						<td>
-							<button class="btn btn-outline-success btn-sm rounded-pill px-3" onclick="showDetail()">
+							<button class="btn btn-outline-new btn-sm rounded-pill px-3" onclick="showDetail()">
 								<i class="bi bi-eye me-1"></i>Detail
 							</button>
 						</td>
@@ -38,7 +62,7 @@
 						<td>Gingivitis Ringin</td>
 						<td>Scaling</td>
 						<td>
-							<button class="btn btn-outline-success btn-sm rounded-pill px-3" onclick="showDetail()">
+							<button class="btn btn-outline-new btn-sm rounded-pill px-3" onclick="showDetail()">
 								<i class="bi bi-eye me-1"></i>Detail
 							</button>
 						</td>
