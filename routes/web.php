@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\DokterController;
 use App\Http\Controllers\Dokter\DashboardController as DokterDashboardController;
 use App\Http\Controllers\Dokter\JadwalPemeriksaanController as JadwalPemeriksaanDokterController;
 use App\Http\Controllers\dokter\LaporanController;
@@ -15,10 +16,6 @@ use App\Http\Controllers\Pasien\ProfilController;
 use App\Http\Controllers\AuthController;
 
 
-Route::get('/', function () {
-    return view('sign-in');
-});
-
 Route::get('/sign-up', [AuthController::class, 'showSignup'])->name('signup.show');
 Route::post('/sign-up/submit', [AuthController::class, 'submitSignup'])->name('signup.submit');
 
@@ -27,11 +24,20 @@ Route::post('/sign-in/submit', [AuthController::class, 'submitSignin'])->name('l
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dokter/dashboard', [DokterDashboardController::class, 'index'])
-    ->name('dokter.dashboard');
+// Route::get('/dokter/dashboard', [DokterDashboardController::class, 'index'])
+//     ->name('dokter.dashboard');
 
 Route::prefix('admin')->group(function () {
-   Route::get('/dashboard/dashboard', [AdminController::class, 'index'])->name('admin.layout.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])
+        ->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])
+        ->name('admin.dashboard');
+
+    //dokter
+    Route::get('/dokter/dashboard', [DokterController::class, 'index'])
+        ->name('admin.dokter.index');
+    Route::get('/dokter/tambah-data', [DokterController::class, 'store'])
+        ->name('admin.dokter.tambah');
 });
 // Halaman Jadwal Pemeriksaan Dokter
 Route::prefix('dokter')->group(function () {
@@ -52,20 +58,24 @@ Route::prefix('dokter')->group(function () {
     Route::get('/laporan/{id}', [LaporanController::class, 'show'])->name('dokter.laporan.show');
     Route::get('/laporan/export', [LaporanController::class, 'exportExcel'])->name('dokter.laporan.export');
 });
-Route::get('/pasien/dashboard', [PasienDashboardController::class, 'index'])
-   ->name('pasien.dashboard');
 
-Route::get('/pasien/reservasi', [ReservasiController::class, 'index'])
-   ->name('pasien.reservasi');
+Route::prefix('pasien')->group(function () {
 
-Route::get('/pasien/jadwalpemeriksaan', [JadwalPemeriksaanPasienController::class, 'index'])
-   ->name('pasien.jadwalpemeriksaan');
-
-Route::get('/pasien/riwayatpemeriksaan', [RiwayatpemeriksaanController::class, 'index'])
-   ->name('pasien.riwayatpemeriksaan');
-
-Route::get('/pasien/profilsaya', [ProfilController::class, 'index'])
-   ->name('pasien.profilesaya');
-
-Route::get('/edit-profil', [Profilcontroller::class, 'edit'])
-    ->name('pasien.editprofil');
+    Route::get('/dashboard', [PasienDashboardController::class, 'index'])
+       ->name('pasien.dashboard');
+    
+    Route::get('/reservasi', [ReservasiController::class, 'index'])
+       ->name('pasien.reservasi');
+    
+    Route::get('/jadwalpemeriksaan', [JadwalPemeriksaanPasienController::class, 'index'])
+       ->name('pasien.jadwalpemeriksaan');
+    
+    Route::get('/riwayatpemeriksaan', [RiwayatpemeriksaanController::class, 'index'])
+       ->name('pasien.riwayatpemeriksaan');
+    
+    Route::get('/profilsaya', [ProfilController::class, 'index'])
+       ->name('pasien.profilesaya');
+    
+    Route::get('/edit-profil', [Profilcontroller::class, 'edit'])
+        ->name('pasien.editprofil');
+});

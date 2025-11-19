@@ -1,9 +1,13 @@
-@extends('layout.app')
-
-@section('title', 'Dashboard')
-
-@section('content')
-    <style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@yield('title', 'DentaGo Pasien')</title>
+	<link rel="stylesheet" href="{{ asset('vendor/bootstrap/bootstrap.min.css') }}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+	<script src="{{ asset('vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+	<style>
 		body {
 			font-family: 'Poppins', sans-serif;
 			background-color: #F4F6F9;
@@ -175,29 +179,28 @@
 	<div class="sidebar">
 		<div class="brand">DentaGo</div>
 		<ul class="nav">
-			<a href="{{ route('pasien.dashboard') }}" class="{{ request()->routeIs('pasien.dashboard') ? 'active' : '' }}"><i class="bi bi-house-door"></i>Dashboard</a>
-		    <a href="{{ route('pasien.reservasi') }}" class="{{ request()->routeIs('pasien.reservasi') ? 'active' : '' }}"><i class="bi bi-clipboard-plus"></i>Buat Reservasi</a>
-		    <a href="{{ route('pasien.riwayatpemeriksaan') }}" class="{{ request()->routeIs('pasien.riwayatpemeriksaan') ? 'active' : '' }}"><i class="bi bi-clock-history"></i>Riwayat Pemeriksaan</a>
+			<a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="bi bi-house-door"></i>Dashboard</a>
+		    <a href="{{ route('admin.dokter.index') }}" class="{{ request()->routeIs('admin.dokter.index') ? 'active' : '' }}"><i class="bi bi-person"></i> Data Dokter</a>
+		    <a href="#" class=""><i class="bi bi-people me-2"></i> Data Pasien</a>
+		    <a href="#" class=""><i class="bi bi-book-half"></i> Riwayat Pemeriksaan</a>
 		    <li>
-            <a href="{{ route('logout') }}" class="logout"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="bi bi-box-arrow-right me-2"></i> Logout
-            </a>
-        </li>
- 
-
-    <!-- Form logout HARUS di luar <li> -->
+            	    <a href="{{ route('logout') }}" class="logout"
+                	onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                	<i class="bi bi-box-arrow-right me-2"></i> Logout
+                    </a>
+                    </li>
 		<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 			@csrf
 		</form>
 		</ul>
 	</div>
 
+
 	<nav class="navbar-custom">
 		<div class="dropdown profile">
 			<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil">
 			<span class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-				Kamaya Nadeleine
+				{{ Auth::user()->username }}
 			</span>
 			<ul class="dropdown-menu dropdown-menu-end">
 				<li><a class="dropdown-item" href="{{ route('pasien.profilesaya') }}">Profil Saya</a></li>
@@ -205,4 +208,8 @@
 		</div>
 	</nav>
 
-@endsection
+    <div class="content">
+		@yield('content')
+	</div>
+</body>
+</html>
