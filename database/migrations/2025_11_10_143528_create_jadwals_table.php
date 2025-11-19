@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pasien');
             $table->time('jam');
+            $table->date('tanggal'); 
             $table->string('jenis_pemeriksaan');
             $table->enum('status', ['Menunggu', 'Proses', 'Selesai'])->default('Menunggu');
             $table->timestamps();

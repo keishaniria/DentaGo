@@ -3,11 +3,12 @@ use App\Http\Controllers\Dokter\DashboardController as DokterDashboardController
 use App\Http\Controllers\Dokter\JadwalPemeriksaanController as DokterJadwalController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Dokter\JadwalPemeriksaanController as JadwalPemeriksaanDokterController;
+use App\Http\Controllers\Pasien\DashboardController as PasienDashboardController;
 use App\Http\Controllers\dokter\LaporanController;
 use App\Http\Controllers\Dokter\PasienController;
 use App\Http\Controllers\Dokter\PemeriksaanController;
+use App\Http\Controllers\Dokter\ProfilDokterController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Pasien\DashboardController as PasienDashboardController;
 use App\Http\Controllers\Pasien\ReservasiController;
 use App\Http\Controllers\Pasien\JadwalpemeriksaanController as PasienJadwalController;
 use App\Http\Controllers\Pasien\JadwalpemeriksaanController as JadwalPemeriksaanPasienController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
+
     return view('sign-in');
 });
 
@@ -28,34 +30,31 @@ Route::post('/sign-in/submit', [AuthController::class, 'submitSignin'])->name('l
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dokter/dashboard', [DokterDashboardController::class, 'index'])
-    ->name('dokter.dashboard');
-
 Route::prefix('admin')->group(function () {
    Route::get('/dashboard/dashboard', [AdminController::class, 'index'])->name('admin.layout.dashboard');
 });
 
 // Halaman Jadwal Pemeriksaan Dokter
 Route::prefix('dokter')->group(function () {
-    Route::get('/jadwal', [DokterJadwalController::class, 'index'])->name('dokter.jadwal.index');
-    Route::post('/jadwal/update-status/{id}', [JadwalPemeriksaanController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
-    Route::delete('/jadwal/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('dokter.jadwal.destroy');
-    Route::get('/jadwal', [JadwalPemeriksaanDokterController::class, 'index'])->name('dokter.jadwal.index');
-    Route::post('/jadwal/update-status/{id}', [JadwalPemeriksaanDokterController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
-    Route::delete('/jadwal/{id}', [JadwalPemeriksaanDokterController::class, 'destroy'])->name('dokter.jadwal.destroy');
+   Route::get('/dashboard', [DokterDashboardController::class, 'index'])->name('dokter.dashboard');
+   Route::get('/jadwal', [JadwalPemeriksaanDokterController::class, 'index'])->name('dokter.jadwal.index');
+   Route::post('/jadwal/update-status/{id}', [JadwalPemeriksaanController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
+   Route::delete('/jadwal/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('dokter.jadwal.destroy');
 
-    Route::get('/pasien', [PasienController::class, 'index'])->name('dokter.pasien.index');
-    Route::get('pasien/{id}', [PasienController::class, 'show'])->name('dokter.pasien.show');
+   Route::get('/profil', [ProfilDokterController::class, 'index'])->name('dokter.profil.index');
 
-    Route::get('/pasien/{id}/pemeriksaan/create', [PemeriksaanController::class, 'create'])->name('dokter.pemeriksaan.create');
-    Route::post('/pasien/{id}/pemeriksaan', [PemeriksaanController::class, 'store'])->name('dokter.pemeriksaan.store');
-    Route::get('/pemeriksaan/{id}/edit', [PemeriksaanController::class, 'edit'])->name('dokter.pemeriksaan.edit');
-    Route::put('/pemeriksaan/{id}', [PemeriksaanController::class, 'update'])->name('dokter.pemeriksaan.update');
+   Route::get('/pasien', [PasienController::class, 'index'])->name('dokter.pasien.index');
+   Route::get('/pasien/{id}', [PasienController::class, 'show'])->where('id', '[0-9]+')->name('dokter.pasien.show');
+
+   Route::get('/pasien/{id}/pemeriksaan/create', [PemeriksaanController::class, 'create'])->name('dokter.pemeriksaan.create');
+   Route::post('/pasien/{id}/pemeriksaan', [PemeriksaanController::class, 'store'])->name('dokter.pemeriksaan.store');
+   Route::get('/pemeriksaan/{id}/edit', [PemeriksaanController::class, 'edit'])->name('dokter.pemeriksaan.edit');
+   Route::put('/pemeriksaan/{id}', [PemeriksaanController::class, 'update'])->name('dokter.pemeriksaan.update');
 
 
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('dokter.laporan.index');
-    Route::get('/laporan/{id}', [LaporanController::class, 'show'])->name('dokter.laporan.show');
-    Route::get('/laporan/export', [LaporanController::class, 'exportExcel'])->name('dokter.laporan.export');
+   Route::get('/laporan', [LaporanController::class, 'index'])->name('dokter.laporan.index');
+   Route::get('/laporan/{id}', [LaporanController::class, 'show'])->name('dokter.laporan.show');
+   Route::get('/laporan/{id}/export', [LaporanController::class, 'exportExcel'])->name('dokter.laporan.export');
 });
 
 // Pasien Route
@@ -83,4 +82,3 @@ Route::prefix('pasien')->group(function () {
       Route::get('/riwayatpemeriksaan', [RiwayatpemeriksaanController::class, 'index'])
          ->name('pasien.riwayatpemeriksaan');
 });
-

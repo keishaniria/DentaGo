@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +26,7 @@
             background-color: #243447;
             color: #ecf0f1;
             padding-top: 20px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
             z-index: 200;
         }
 
@@ -60,7 +61,7 @@
             font-weight: 500;
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
-            width: 100%; 
+            width: 100%;
             white-space: nowrap;
         }
 
@@ -82,7 +83,7 @@
             width: calc(100% - 250px);
             height: 65px;
             background: #ffffff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -115,6 +116,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -126,18 +128,36 @@
             <li><a href="{{ route('dokter.jadwal.index') }}" class="{{ request()->routeIs('dokter.jadwal.*') ? 'active' : '' }}"><i class="bi bi-calendar-check"></i> Jadwal Pemeriksaan</a></li>
             <li><a href="{{ route('dokter.pasien.index') }}" class="{{ request()->routeIs('dokter.pasien.*') ? 'active' : '' }}"><i class="bi bi-person-lines-fill"></i> Data Pasien</a></li>
             <li><a href="{{ route('dokter.laporan.index') }}" class="{{ request()->routeIs('dokter.laporan.*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> Laporan</a></li>
-            <li><a href="#" class="text-danger"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+            <li>
+                <a href="{{ route('logout') }}" class="logout"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </a>
+            </li>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </ul>
     </div>
 
     <nav class="top-navbar">
         <div class="dropdown profile">
             <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil">
+            @php
+            use Illuminate\Support\Facades\Auth;
+            @endphp
+
             <span class="dropdown-toggle" data-bs-toggle="dropdown">
-                Dokter Gigi
+                {{ Auth::user()->username }}
             </span>
+
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="">Profil Saya</a></li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('dokter.profil.index') }}">
+                        Profil Saya
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -148,4 +168,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

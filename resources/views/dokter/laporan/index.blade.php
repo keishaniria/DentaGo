@@ -39,59 +39,55 @@
 
         <div class="card-body p-4">
 
-            @php
-            $pemeriksaans = [
-            [
-            'id' => 1,
-            'pasien' => ['nama_pasien' => 'Ahmad Fauzi'],
-            'tanggal_pemeriksaan' => '10-12-2025',
-            'diagnosa' => 'Karies gigi tingkat awal',
-            'tindakan' => 'Pembersihan karang gigi dan tambal ringan'
-            ],
-            [
-            'id' => 2,
-            'pasien' => ['nama_pasien' => 'Siti Rahmawati'],
-            'tanggal_pemeriksaan' => '10-12-2025',
-            'diagnosa' => 'Infeksi gusi ringan',
-            'tindakan' => 'Scaling dan pemberian antibiotik'
-            ],
-            [
-            'id' => 3,
-            'pasien' => ['nama_pasien' => 'Budi Santoso'],
-            'tanggal_pemeriksaan' => '10-12-2025',
-            'diagnosa' => 'Gigi berlubang parah',
-            'tindakan' => 'Pencabutan gigi molar kanan atas'
-            ],
-            ];
-            @endphp
-
             <table class="table table-hover align-middle">
                 <thead class="text-center">
                     <tr>
                         <th>ID</th>
                         <th>Nama Pasien</th>
                         <th>Tanggal Pemeriksaan</th>
+                        <th>Keluhan</th>
                         <th>Diagnosa</th>
                         <th>Tindakan</th>
+                        <th>Resep Obat</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody class="text-center">
-                    @foreach($pemeriksaans as $p)
+                    @forelse($pemeriksaans as $p)
                     <tr>
-                        <td>{{ $p['id'] }}</td>
-                        <td>{{ $p['pasien']['nama_pasien'] }}</td>
-                        <td>{{ $p['tanggal_pemeriksaan'] }}</td>
-                        <td>{{ $p['diagnosa'] }}</td>
-                        <td>{{ $p['tindakan'] }}</td>
+                        <td>{{ $p->id }}</td>
+                        <td>{{ $p->pasien->nama_pasien }}</td>
+                        <td>{{ $p->tanggal_pemeriksaan }}</td>
+                        <td>{{ $p->keluhan }}</td>
+                        <td>{{ $p->diagnosa }}</td>
+                        <td>{{ $p->tindakan }}</td>
                         <td>
-                            <a href="{{ route('dokter.laporan.export') }}" class="btn btn-sm btn-detail-pastel">
+                            @php
+                            // decode JSON string menjadi array
+                            $resep = is_string($p->resep) ? json_decode($p->resep, true) : $p->resep;
+                            @endphp
+
+                            @if(is_array($resep))
+                            @foreach($resep as $r)
+                            • {{ $r['nama'] }} ({{ $r['dosis'] }}) <br>
+                            @endforeach
+                            @else
+                            {{ $p->resep }}
+                            @endif
+                        </td>
+
+                        <td>
+                            <a href="{{ route('dokter.laporan.export', $p->id) }}" class="btn btn-sm btn-detail-pastel">
                                 Export
                             </a>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="8">Tidak ada data pemeriksaan.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
 

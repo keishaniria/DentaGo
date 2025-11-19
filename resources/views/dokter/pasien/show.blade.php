@@ -84,7 +84,7 @@
             </div>
 
             <div>
-                <a href="{{ route('dokter.pemeriksaan.create', $pasien->id) }}"
+                <a href="{{  route('dokter.pemeriksaan.create', $pasien->id) }}"
                     class="btn btn-add-pemeriksaan px-4 py-2 rounded-pill shadow-sm">
                     <i class="bi bi-plus-circle me-1"></i> Tambah Pemeriksaan
                 </a>
@@ -114,13 +114,13 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($pasien->pemeriksaan as $pemeriksaan)
+                        @foreach ($pasien->riwayatPemeriksaan as $pemeriksaan)
                         <tr>
                             <td class="text-center">{{ $pemeriksaan->id }}</td>
 
                             <td>
-                                @if ($pemeriksaan->foto_kondisi_gigi)
-                                <img src="{{ asset('storage/foto_gigi/' . $pemeriksaan->foto_kondisi_gigi) }}"
+                                @if($pemeriksaan->foto_kondisi_gigi)
+                                <img src="{{ asset('storage/' . $pemeriksaan->foto_kondisi_gigi) }}"
                                     width="50" class="rounded img-pasien">
                                 @else
                                 <span class="text-muted small">Tidak ada foto</span>
@@ -133,16 +133,37 @@
                             <td>{{ $pemeriksaan->tindakan }}</td>
 
                             <td>
-                                @php $resep = json_decode($pemeriksaan->resep, true); @endphp
-                                @if($resep)
+                                @php
+                                $raw = $pemeriksaan->resep;
+
+                                // Jika null → jadikan array kosong
+                                if (is_null($raw)) {
+                                $resep = [];
+                                }
+                                // Jika sudah array → pakai langsung
+                                elseif (is_array($raw)) {
+                                $resep = $raw;
+                                }
+                                // Jika string JSON → decode
+                                elseif (is_string($raw)) {
+                                $decoded = json_decode($raw, true);
+                                $resep = is_array($decoded) ? $decoded : [];
+                                }
+                                else {
+                                $resep = [];
+                                }
+                                @endphp
+
+                                @if(count($resep) > 0)
                                 <ul class="mb-0 small">
                                     @foreach ($resep as $item)
-                                    <li>{{ $item['nama'] }} ({{ $item['dosis'] }})</li>
+                                    <li>{{ $item['nama'] ?? '-' }} ({{ $item['dosis'] ?? '-' }})</li>
                                     @endforeach
                                 </ul>
                                 @else
                                 <span class="text-muted small">Tidak ada resep</span>
                                 @endif
+
                             </td>
 
                             <td class="text-center">
