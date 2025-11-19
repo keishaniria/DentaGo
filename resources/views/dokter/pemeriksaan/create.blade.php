@@ -94,11 +94,9 @@
 
                     <div id="resep-container">
                         <div class="resep-item pastel-border rounded p-3 mb-2">
-                            <input type="text" name="nama_obat[]" class="form-control pastel-input mb-2" placeholder="Nama Obat" required>
-                            <input type="text" name="dosis[]" class="form-control pastel-input mb-2" placeholder="Dosis (misal: 3x1)" required>
-                            <button type="button" class="btn pastel-danger btn-sm w-100 remove-obat">
-                                <i class="bi bi-trash me-1"></i> Hapus
-                            </button>
+                            <input type="text" name="nama_obat[]" class="form-control pastel-input mb-2" placeholder="Nama Obat">
+                            <input type="text" name="dosis[]" class="form-control pastel-input mb-2" placeholder="Dosis (misal: 3x1)">
+                            <button type="button" class="btn pastel-danger btn-sm w-100 remove-obat">Hapus</button>
                         </div>
                     </div>
 
@@ -142,9 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
         newItem.innerHTML = `
             <input type="text" name="nama_obat[]" class="form-control pastel-input mb-2" placeholder="Nama Obat" required>
             <input type="text" name="dosis[]" class="form-control pastel-input mb-2" placeholder="Dosis (misal: 3x1)" required>
-            <button type="button" class="btn pastel-danger btn-sm w-100 remove-obat">
-                <i class="bi bi-trash me-1"></i> Hapus
-            </button>
+            <button type="button" class="btn pastel-danger btn-sm w-100 remove-obat">Hapus</button>
         `;
         container.appendChild(newItem);
     });

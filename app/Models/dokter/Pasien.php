@@ -25,9 +25,13 @@ class Pasien extends Model
         'tanggal_lahir' => 'date',
     ];
 
-    // Relasi: satu pasien punya banyak pemeriksaan
     public function pemeriksaan()
     {
         return $this->hasMany(Pemeriksaan::class, 'id_pasien');
+    }
+
+    public function riwayatPemeriksaan()
+    {
+        return $this->hasMany(RiwayatPemeriksaan::class, 'id_pasien');
     }
 }

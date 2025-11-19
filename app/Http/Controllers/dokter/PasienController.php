@@ -37,39 +37,13 @@ class PasienController extends Controller
 
     public function show($id)
     {
-        $pasien = [
-            'id' => 1,
-            'nama_pasien' => 'Dwi Rahma',
-            'jenis_kelamin' => 'Perempuan',
-            'tanggal_lahir' => '1998-07-10',
-            'no_telepon' => '081234567890',
-            'alamat' => 'Jl. Melati No. 12, Bandung',
-            'foto_pasien' => 'default.jpg',
 
-            'pemeriksaan' => [
-                [
-                    'id' => 1,
-                    'foto_kondisi_gigi' => null,
-                    'keluhan' => 'Sakit gigi',
-                    'diagnosa' => 'Gigi berlubang',
-                    'tindakan' => 'tambal gigi',
-                    'tanggal_pemeriksaan' => '10-12-2025',
-                    'resep' => 'baygon'
-                ],
-                [
-                    'id' => 2,
-                    'foto_kondisi_gigi' => null,
-                    'keluhan' => 'Sakit gigi',
-                    'diagnosa' => 'Gigi berlubang',
-                    'tindakan' => 'tambal gigi',
-                    'tanggal_pemeriksaan' => '10-12-2025',
-                    'resep' => 'baygon'
-                ]
-            ]
-        ];
+    $pasien = Pasien::with('riwayatPemeriksaan')->findOrFail($id);
 
-        $pasien = json_decode(json_encode($pasien));
+    return view('dokter.pasien.show', [
+        'pasien' => $pasien,
+        'pemeriksaan' => $pasien->riwayatPemeriksaan
+    ]);
 
-        return view('dokter.pasien.show', compact('pasien'));
     }
 }
