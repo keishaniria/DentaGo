@@ -3,15 +3,14 @@
 namespace App\Models\dokter;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\User; 
 
-class Pemeriksaan extends Model
+class RiwayatPemeriksaan extends Model
 {
     //
-    use HasFactory;
+    protected $table = 'riwayat_pemeriksaan';
 
     protected $fillable = [
+        'id_pemeriksaan',
         'id_pasien',
         'id_dokter',
         'keluhan',
@@ -29,10 +28,5 @@ class Pemeriksaan extends Model
     public function pasien()
     {
         return $this->belongsTo(Pasien::class, 'id_pasien');
-    }
-
-    public function dokter()
-    {
-        return $this->belongsTo(User::class, 'id_dokter');
     }
 }

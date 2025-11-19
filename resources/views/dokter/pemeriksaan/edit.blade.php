@@ -95,17 +95,23 @@
 
                 <div class="mb-3">
                     <label class="form-label pastel-label fw-semibold">Resep Obat</label>
+
+                    @php
+                    $resep = is_string($pemeriksaan->resep)
+                    ? json_decode($pemeriksaan->resep, true)
+                    : ($pemeriksaan->resep ?? []);
+                    @endphp
+
                     <div id="resep-container">
-                        @foreach ($pemeriksaan->resep as $item)
+                        @foreach ($resep as $item)
                         <div class="resep-item pastel-border rounded p-3 mb-2">
-                            <input type="text" name="nama_obat[]" class="form-control pastel-input mb-2" placeholder="Nama Obat" value="{{ $item->nama ?? $item['nama'] }}" required>
-                            <input type="text" name="dosis[]" class="form-control pastel-input mb-2" placeholder="Dosis" value="{{ $item->dosis ?? $item['dosis'] }}" required>
-                            <button type="button" class="btn pastel-danger btn-sm w-100 remove-obat">
-                                <i class="bi bi-trash me-1"></i> Hapus
-                            </button>
+                            <input type="text" name="nama_obat[]" class="form-control pastel-input mb-2" placeholder="Nama Obat" value="{{ $item['nama'] ?? '' }}" required>
+                            <input type="text" name="dosis[]" class="form-control pastel-input mb-2" placeholder="Dosis" value="{{ $item['dosis'] ?? '' }}" required>
+                            <button type="button" class="btn pastel-danger btn-sm w-100 remove-obat">Hapus</button>
                         </div>
                         @endforeach
                     </div>
+
                     <button type="button" id="tambah-obat" class="btn pastel-outline-success btn-sm mt-2">
                         <i class="bi bi-plus-circle me-1"></i> Tambah Obat
                     </button>
@@ -121,7 +127,10 @@
                     <label class="form-label pastel-label fw-semibold">Foto Kondisi Gigi</label>
                     <input type="file" name="foto_kondisi_gigi" class="form-control pastel-input">
                     @if ($pemeriksaan->foto_kondisi_gigi)
-                    <img src="{{ asset('storage/foto_gigi/' . $pemeriksaan->foto_kondisi_gigi) }}" width="100" class="mt-2">
+                    <div class="mt-2">
+                        <img src="{{ asset('storage/' . $pemeriksaan->foto_kondisi_gigi) }}"
+                            width="50" class="rounded img-pasien">
+                    </div>
                     @endif
                 </div>
 
@@ -150,9 +159,7 @@
             newItem.innerHTML = `
             <input type="text" name="nama_obat[]" class="form-control pastel-input mb-2" placeholder="Nama Obat" required>
             <input type="text" name="dosis[]" class="form-control pastel-input mb-2" placeholder="Dosis" required>
-            <button type="button" class="btn pastel-danger btn-sm w-100 remove-obat">
-                <i class="bi bi-trash me-1"></i> Hapus
-            </button>
+            <button type="button" class="btn pastel-danger btn-sm w-100 remove-obat">Hapus</button>
         `;
             container.appendChild(newItem);
         });

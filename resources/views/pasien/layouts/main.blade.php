@@ -6,6 +6,7 @@
 	<title>@yield('title', 'DentaGo Pasien')</title>
 	<link rel="stylesheet" href="{{ asset('vendor/bootstrap/bootstrap.min.css') }}">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="{{ asset('vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
 	<style>
 		body {
@@ -28,7 +29,7 @@
 		.sidebar .brand {
 			font-size: 22px;
 			font-weight: 700;
-			color: #4BC590;
+			color: #bce0d1;
 			text-align: center;
 			margin-bottom: 40px;
 		}
@@ -54,8 +55,8 @@
 		.sidebar .nav a:not(.logout):hover,
 		.sidebar .nav a:not(.logout).active {
 			background-color: #2F4257;
-			color: #4BC590;
-			border-left: 4px solid #4BC590;
+			color: #bce0d1;
+			border-left: 4px solid #bce0d1;
 			box-shadow: inset 2px 2px 5px rgba(0,0,0,0.25);
             transform: translateY(1px);
 			transition: all 0.2s ease;
@@ -94,15 +95,20 @@
 			border-radius: 50%;
 			object-fit: cover;
 			border: 2px solid #ddd;
-			transition: all 0.3s ease;
-		}
-		.profile img:hover {
-			border-color: #4BC590;
-			transform: scale(1.05);
 		}
 		.profile span {
 			font-weight: 500;
 			color: #333;
+		}
+		.profile-name {
+			text-decoration: none;
+			color: inherit;
+			font-family: 'Poppins', sans-serif;
+			cursor: pointer;
+		}                        
+		.profile-name:hover {
+			color: #bce0d1;
+			transition: 0.2s;
 		}
 
 		.content {
@@ -131,7 +137,7 @@
 			margin-bottom: 35px;
 		}
 		.content span {
-			color: #4BC590;
+			color: #bce0d1;
 			font-weight: 700;
 		}
 		.content strong {
@@ -151,7 +157,7 @@
 			border-radius: 25px;
 			text-align: center;
 			transition: all 0.3s ease;
-			border-top: 4px solid #4BC590;
+			border-top: 4px solid #bce0d1;
 		}
 		.card-dashboard:hover {
 			transform: translateY(-5px);
@@ -159,7 +165,7 @@
 		}
 		.card-dashboard i {
 			font-size: 35px;
-			color: #4BC590;
+			color: #bce0d1;
 			margin-bottom: 10px;
 		}
 		.card-dashboard h5 {
@@ -200,12 +206,7 @@
 	<nav class="navbar-custom">
 		<div class="dropdown profile">
 			<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil">
-			<span class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-				Kamaya Nadeleine
-			</span>
-			<ul class="dropdown-menu dropdown-menu-end">
-				<li><a class="dropdown-item" href="{{ route('pasien.profilesaya') }}">Profil Saya</a></li>
-			</ul>
+			<a href="{{ route('pasien.profilesaya') }}" class="profile-name">{{ Auth::user()->username }}</a>
 		</div>
 	</nav>
 

@@ -184,11 +184,20 @@
 		    <a href="#" class=""><i class="bi bi-people me-2"></i> Data Pasien</a>
 		    <a href="#" class=""><i class="bi bi-book-half"></i> Riwayat Pemeriksaan</a>
 		    <li>
+<<<<<<< HEAD
             	    <a href="{{ route('logout') }}" class="logout"
                 	onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 	<i class="bi bi-box-arrow-right me-2"></i> Logout
                     </a>
                     </li>
+=======
+            <a href="{{ route('logout') }}" class="logout"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </a>
+        </li>
+ 
+>>>>>>> a801ca58c08c87c3bc29c2303d8b998fdb54110a
 		<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 			@csrf
 		</form>

@@ -5,7 +5,6 @@
     <i class="bi bi-calendar-check me-2"></i> Jadwal Pemeriksaan
 </h2>
 
-
 <style>
     .card-header {
         background-color: #bce0d1 !important;
@@ -60,12 +59,12 @@
                     <th>Jam</th>
                     <th>Jenis Pemeriksaan</th>
                     <th>Status</th>
-                    <th>Aksi</th>
+                    <th style="width: 120px;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($jadwal as $j)
-                <tr>
+                <tr class="text-center">
                     <td>{{ $j->nama_pasien }}</td>
                     <td>{{ $j->tanggal }}</td>
                     <td>{{ $j->jam }}</td>
@@ -81,12 +80,12 @@
                         @endif
                     </td>
 
-                    <td>
+                    <td class="text-center">
                         @if ($j->status === 'Selesai')
                         <form action="{{ route('dokter.jadwal.destroy', $j->id) }}" method="POST" onsubmit="return confirm('Yakin ingin hapus?')">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger">Hapus</button>
+                            <button class="btn btn-sm btn-danger-soft">Hapus</button>
                         </form>
                         @endif
                     </td>
