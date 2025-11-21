@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jadwals', function (Blueprint $table) {
+        Schema::create('dokter_jadwal_praktek', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_pasien');
-            $table->time('jam');
-            $table->date('tanggal'); 
-            $table->string('jenis_pemeriksaan');
-            $table->enum('status', ['Menunggu', 'Proses', 'Selesai'])->default('Menunggu');
+            $table->unsignedBigInteger('id_dokter');
+            $table->date('tanggal');
+            $table->time('jam_mulai');
+            $table->time('jam_selesai');
             $table->timestamps();
+            $table->foreign('id_dokter')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jadwals');
+        Schema::dropIfExists('dokter_jadwal_praktek');
     }
 };

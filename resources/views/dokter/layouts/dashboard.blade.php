@@ -76,6 +76,12 @@
             justify-content: flex-start !important;
         }
 
+        .sidebar .nav a.logout {
+            color: #E74C3C;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
         .top-navbar {
             position: fixed;
             top: 0;
@@ -114,15 +120,29 @@
             margin-left: 270px;
             padding: 110px 50px 40px 50px;
         }
+
+        .dropdown-menu .dropdown-item:hover,
+        .dropdown-menu .dropdown-item:focus {
+            background-color: #bce0d1 !important;
+            color: #000 !important;
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="sidebar">
-        <div class="brand">
-            <i class="bi bi-tooth"></i> DentaGo
+        <div class="brand d-flex align-items-center justify-content-center gap-2">
+            <img src="{{ asset('images/logo.png') }}" width="28" alt="Logo">
+            <span>DentaGo</span>
         </div>
+
         <ul class="nav">
             <li><a href="{{ route('dokter.dashboard') }}" class="{{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="{{ route('dokter.jadwal.index') }}" class="{{ request()->routeIs('dokter.jadwal.*') ? 'active' : '' }}"><i class="bi bi-calendar-check"></i> Jadwal Pemeriksaan</a></li>

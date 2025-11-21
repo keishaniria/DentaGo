@@ -4,7 +4,7 @@ namespace App\Models\dokter;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\User; 
+use App\Models\User;
 
 class Pemeriksaan extends Model
 {
@@ -34,5 +34,10 @@ class Pemeriksaan extends Model
     public function dokter()
     {
         return $this->belongsTo(User::class, 'id_dokter');
+    }
+
+    public function getJenisPemeriksaanAttribute()
+    {
+        return $this->tindakan ?? '-';
     }
 }

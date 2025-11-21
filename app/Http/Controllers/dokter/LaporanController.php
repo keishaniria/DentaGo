@@ -39,19 +39,18 @@ class LaporanController extends Controller
         $headers = [
             'A1' => 'ID',
             'B1' => 'Nama Pasien',
-            'C1' => 'Nama Dokter',
-            'D1' => 'Keluhan',
-            'E1' => 'Diagnosa',
-            'F1' => 'Tindakan',
-            'G1' => 'Resep Obat',
-            'H1' => 'Tanggal Pemeriksaan',
+            'C1' => 'Keluhan',
+            'D1' => 'Diagnosa',
+            'E1' => 'Tindakan',
+            'F1' => 'Resep Obat',
+            'G1' => 'Tanggal Pemeriksaan',
         ];
 
         foreach ($headers as $cell => $text) {
             $sheet->setCellValue($cell, $text);
         }
 
-        $sheet->getStyle('A1:H1')->applyFromArray([
+        $sheet->getStyle('A1:G1')->applyFromArray([
             'font' => ['bold' => true],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
@@ -89,14 +88,13 @@ class LaporanController extends Controller
             
             $sheet->setCellValue("A{$row}", $item->id);
             $sheet->setCellValue("B{$row}", $item->pasien->nama_pasien ?? '-');
-            $sheet->setCellValue("C{$row}", $item->dokter->username ?? '-');
-            $sheet->setCellValue("D{$row}", $item->keluhan);
-            $sheet->setCellValue("E{$row}", $item->diagnosa);
-            $sheet->setCellValue("F{$row}", $item->tindakan);
-            $sheet->setCellValue("G{$row}", $resepText);
-            $sheet->setCellValue("H{$row}", $item->tanggal_pemeriksaan);
+            $sheet->setCellValue("C{$row}", $item->keluhan);
+            $sheet->setCellValue("D{$row}", $item->diagnosa);
+            $sheet->setCellValue("E{$row}", $item->tindakan);
+            $sheet->setCellValue("F{$row}", $resepText);
+            $sheet->setCellValue("G{$row}", $item->tanggal_pemeriksaan);
 
-            $sheet->getStyle("A{$row}:H{$row}")->applyFromArray([
+            $sheet->getStyle("A{$row}:G{$row}")->applyFromArray([
                 'borders' => [
                     'allBorders' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
@@ -107,7 +105,7 @@ class LaporanController extends Controller
             $row++;
         }
 
-        foreach (range('A', 'H') as $col) {
+        foreach (range('A', 'G') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 

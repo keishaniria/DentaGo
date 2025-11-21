@@ -11,7 +11,10 @@ class JadwalPemeriksaanController extends Controller
     //
     public function index()
     {
-        $jadwal = Jadwal::orderBy('jam', 'asc')->get();
+        $jadwal = Jadwal::with('pasien')
+            ->orderBy('jam', 'asc')
+            ->get();
+
         return view('dokter.jadwal.index', compact('jadwal'));
     }
 
@@ -28,11 +31,11 @@ class JadwalPemeriksaanController extends Controller
     {
         $jadwal = Jadwal::findOrFail($id);
 
-        if ($jadwal->status === 'Selesai') {
-            $jadwal->delete();
-            return redirect()->back()->with('success', 'Jadwal berhasil dihapus!');
+        if ($jadwal->status !== 'Selesai') {
+            return redirect()->back();
         }
 
-        return redirect()->back()->with('error', 'Hanya jadwal dengan status "Selesai" yang bisa dihapus.');
+        $jadwal->delete();
+        return redirect()->back()->with('success', 'Jadwal pemeriksaan pasien dengan status Selesai berhasil dihapus!');
     }
 }

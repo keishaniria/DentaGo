@@ -8,7 +8,7 @@
 
 <style>
     .card-header {
-        background-color: #bce0d1 !important; 
+        background-color: #bce0d1 !important;
         color: #2c3e50 !important;
         font-weight: 600;
     }
@@ -26,6 +26,7 @@
         color: #0d3b29 !important;
         border: none;
     }
+
     .btn-detail-pastel:hover {
         background-color: #8ccca7 !important;
     }
@@ -56,25 +57,25 @@
             </thead>
             <tbody>
                 @foreach ($pasien as $p)
-                    <tr class="text-center">
-                        <td>{{ $p['id'] }}</td>
-                        <td>
-                            <img src="{{ asset('storage/pasien/' . $p['foto_pasien']) }}" 
-                                 alt="Foto" width="50" 
-                                 class="rounded-circle img-pasien">
-                        </td>
-                        <td>{{ $p['nama_pasien'] }}</td>
-                        <td>{{ $p['jenis_kelamin'] }}</td>
-                        <td>{{ $p['tanggal_lahir'] }}</td>
-                        <td>{{ $p['no_telepon'] }}</td>
-                        <td>{{ $p['alamat'] }}</td>
-                        <td>
-                            <a href="{{ route('dokter.pasien.show', $p['id']) }}" 
-                               class="btn btn-sm btn-detail-pastel">
-                                Detail
-                            </a>
-                        </td>
-                    </tr>
+                <tr class="text-center">
+                    <td>{{ $p->id }}</td>
+                    <td>
+                        <img src="{{ asset('storage/' . $p->foto_pasien) }}"
+                            alt="Foto" width="50"
+                            class="rounded-circle img-pasien">
+                    </td>
+                    <td>{{ $p->nama_pasien }}</td>
+                    <td>{{ $p->jenis_kelamin }}</td>
+                    <td>{{ $p->tanggal_lahir->format('Y-m-d') }}</td>
+                    <td>{{ $p->no_telepon }}</td>
+                    <td>{{ $p->alamat }}</td>
+                    <td>
+                        <a href="{{ route('dokter.pasien.show', $p['id']) }}"
+                            class="btn btn-sm btn-detail-pastel">
+                            Detail
+                        </a>
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>
