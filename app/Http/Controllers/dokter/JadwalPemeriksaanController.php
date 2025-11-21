@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dokter;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dokter\Jadwal;
+use App\Models\pasien\Reservasi;
 use Illuminate\Http\Request;
 
 class JadwalPemeriksaanController extends Controller
@@ -25,6 +26,17 @@ class JadwalPemeriksaanController extends Controller
         $jadwal->save();
 
         return redirect()->back()->with('success', 'Status jadwal berhasil diperbarui!');
+    }
+
+    public function jadwalDokter()
+    {
+        $reservasi = Reservasi::with('pasien')
+            ->whereIn('status', ['Menunggu', 'Proses'])
+            ->orderBy('tanggal_reservasi')
+            ->orderBy('jam')
+            ->get();
+
+        return view('dokter.jadwal', compact('reservasi'));
     }
 
     public function destroy($id)
