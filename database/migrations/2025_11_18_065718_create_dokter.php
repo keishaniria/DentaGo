@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('no_telp');
             $table->string('foto')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_users')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

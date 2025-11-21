@@ -143,7 +143,10 @@
 
     <nav class="top-navbar">
         <div class="dropdown profile">
-            <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil">
+            <img src="{{ Auth::user()->dokter && Auth::user()->dokter->foto_dokter
+                ? asset('storage/' . Auth::user()->dokter->foto_dokter)
+                : 'https://cdn-icons-png.flaticon.com/512/847/847969.png'
+            }}">
             @php
             use Illuminate\Support\Facades\Auth;
             @endphp

@@ -35,9 +35,41 @@ class ReservasiController extends Controller
             'id_pasien' => $pasien->id,
             'tanggal_reservasi' => $request->tanggal_reservasi,
             'jam' => $request->jam,
-            'status' => 'menunggu'
+            'status' => 'Menunggu'
         ]);
 
         return redirect()->route('pasien.jadwalpemeriksaan');
+    }
+
+    public function mulai($id)
+    {
+        $r = Reservasi::findOrFail($id);
+        $r->status = 'Proses';
+        $r->save();
+
+        return back()->with('success', 'Pemeriksaan telah dimulai');
+    }
+
+    public function selesai($id)
+    {
+        $r = Reservasi::findOrFail($id);
+        $r->status = 'Selesai';
+        $r->save();
+
+        return back()->with('success', 'Pemeriksaan selesai');
+    }
+
+    public function batal($id)
+    {
+        $r = Reservasi::findOrFail($id);
+        
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Anda tidak memiliki akses.');
+        }
+
+        $r->status = 'Batal';
+        $r->save();
+
+        return back()->with('success', 'Reservasi dibatalkan');
     }
 }

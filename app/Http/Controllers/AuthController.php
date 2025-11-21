@@ -13,10 +13,17 @@ class AuthController extends Controller
     }
 
     public function submitSignup(Request $request){
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+        ]);
+
         $user = new User();
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = $request->password;
+        $user->role = 'pasien';
         $user->save();
 
         return redirect()->route('login.show')->with('success', 'Registrasi berhasil! Silakan login.');

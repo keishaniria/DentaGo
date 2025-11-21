@@ -1,12 +1,11 @@
 @extends('admin.layout.dashboard')
 
-@section('title', 'Data dokter')
+@section('title', 'Data pasien')
 
 @section('content')
 
 <h2 class="fw-bold mb-3">
     <i class="bi bi-person-fill"></i> Data Dokter
-    <a href="{{ route('admin.dokter.tambah-dokter') }}">Tambah data</a>
 </h2>
 
 
@@ -25,10 +24,6 @@
         background-color: #f3f8f6 !important;
     }
 
-    table td{
-        vertical-align: middle !important;
-    }
-
     .btn-detail-pastel {
         background-color: #9ad7b3 !important;
         color: #0d3b29 !important;
@@ -41,28 +36,6 @@
     .img-pasien {
         border: 2px solid #d9ebe4;
         padding: 2px;
-    }
-
-    .row-action{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-    }
-    .icon-edit {
-        width: 28px;
-        height: 28px;
-        background: #f5e589;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        
-    }
-
-    .icon-edit i {
-        font-size: 17px;
-        color: #333;
     }
 </style>
 
@@ -86,18 +59,17 @@
                     <tr class="text-center">
                         <td>{{ $d['id'] }}</td>
                         <td>
-                            {{-- {{ dd($d->foto) }} --}}
-
-                            <img src="{{ asset('storage/' . $d->foto) }}" 
-                                 alt="Foto" width="90" height="90"
-                                 class="img-pasien">
+                            <img src="{{ asset('storage/dokter/' . $d->foto) }}" 
+                                 alt="Foto" width="150"
+                                 class=" img-pasien">
                         </td>
                         <td>{{ $d['nama_dokter'] }}</td>
                         <td>{{ $d['no_telp'] }}</td>
-                        <td class="row-action">
-                            <a href="" class="icon-edit" title="Detail"><i class="bi bi-eye-fill"></i></a>
-                            <a href="" class="icon-edit" title="Edit"><i class="bi bi-pencil-fill" ></i></a>
-                            <a href="" class="icon-edit" title="Hapus"><i class="bi bi-eraser-fill" ></i></a>
+                        <td>
+                            {{-- <a href="{{ route('admin.dokter.show', $d['id']) }}" 
+                               class="btn btn-sm btn-detail-pastel">
+                                Detail
+                            </a> --}}
                         </td>
                     </tr>
                 @endforeach

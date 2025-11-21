@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_dokter')->nullable();
             $table->date('tanggal_reservasi');
             $table->time('jam');
-            $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal']);
+            $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal'])->default('Menunggu');
             $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 

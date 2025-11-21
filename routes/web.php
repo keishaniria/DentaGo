@@ -41,11 +41,20 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])
         ->name('admin.dashboard');
 
+   Route::patch('/reservasi/{id}/status', [ReservasiController::class, 'updateStatus'])
+        ->name('admin.reservasi.updateStatus');
+
     //dokter
     Route::get('/dokter/dashboard', [DokterController::class, 'index'])
         ->name('admin.dokter.index');
-    Route::get('/dokter/tambah-data', [DokterController::class, 'store'])
-        ->name('admin.dokter.tambah');
+    Route::get('/dokter/tambah-data', [DokterController::class, 'create'])
+        ->name('admin.dokter.tambah-dokter');
+    Route::post('/dokter/tambah-data', [DokterController::class, 'store'])
+        ->name('admin.dokter.store');
+
+   //pasien
+   Route::get('/dokter/tambah-data', [DokterController::class, 'create'])
+        ->name('admin.dokter.tambah-dokter');
 });
 
 // Halaman Jadwal Pemeriksaan Dokter
