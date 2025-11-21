@@ -4,7 +4,7 @@ namespace App\Models\Pasien;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use App\Models\dokter\Jadwal;
 class Reservasi extends Model
 {
     use HasFactory;
@@ -17,6 +17,22 @@ class Reservasi extends Model
         'jam',
         'status',
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($reservasi) {
+
+            Jadwal::create([
+                'id_pasien' => $reservasi->id_pasien,
+                'id_dokter' => null,
+                'tanggal' => $reservasi->tanggal_reservasi,
+                'jam' => $reservasi->jam,
+                'jenis_pemeriksaan' => null,
+                'status' => 'Menunggu',
+            ]);
+
+        });
+    }
 
     public function pasien() 
     {

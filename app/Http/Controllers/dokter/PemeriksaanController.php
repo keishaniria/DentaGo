@@ -78,7 +78,7 @@ class PemeriksaanController extends Controller
 
         return redirect()
             ->route('dokter.pasien.show', $id)
-            ->with('success', 'Data pemeriksaan berhasil disimpan!');
+            ->with('success', 'Data pemeriksaan berhasil ditambahkan ke riwayat pemeriksaan pasien!');
     }
 
 
@@ -155,6 +155,6 @@ class PemeriksaanController extends Controller
 
         return redirect()
             ->route('dokter.pasien.show', $pemeriksaan->id_pasien)
-            ->with('success', 'Data pemeriksaan berhasil diperbarui!');
+            ->with('success', 'Data pemeriksaan pasien berhasil diperbarui!');
     }
 }

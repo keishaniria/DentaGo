@@ -16,7 +16,7 @@
     }
 
     .dokter-profile-body {
-        background: #f8fffc;
+        background: #fff;
         padding: 25px;
     }
 

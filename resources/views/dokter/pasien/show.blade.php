@@ -53,13 +53,19 @@
             padding: 18px !important;
             padding-top: 12px !important;
         }
+
+        .alert-success {
+            background-color: #d7ecff !important;
+            color: #0b3954 !important;
+            border-left: 5px solid #5ca9ff !important;
+        }
     </style>
 
     <div class="card shadow-sm border-0 rounded-4 mb-4 pastel-card">
         <div class="card-body p-4 d-flex align-items-center justify-content-between flex-wrap">
 
             <div class="d-flex align-items-center mb-3 mb-md-0">
-                <img src="{{ asset('storage/pasien/' . $pasien->foto_pasien) }}"
+                <img src="{{ asset('storage/' . $pasien->foto_pasien) }}"
                     alt="Foto Pasien"
                     class="rounded-circle border img-pasien me-4"
                     width="100" height="100">
@@ -70,7 +76,7 @@
                     <p class="mb-1 text-muted small">
                         <i class="bi bi-gender-ambiguous me-1"></i> {{ $pasien->jenis_kelamin }}
                         <span class="mx-2">|</span>
-                        <i class="bi bi-calendar-date me-1"></i> {{ $pasien->tanggal_lahir }}
+                        <i class="bi bi-calendar-date me-1"></i> {{ $pasien->tanggal_lahir->format('Y-m-d') }}
                     </p>
 
                     <p class="mb-1 text-muted small">
@@ -92,6 +98,13 @@
         </div>
     </div>
 
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    @endif
+
     <div class="card shadow-sm border-0 rounded-4">
         <div class="card-header pastel-header">
             <i class="bi bi-clipboard-data me-2"></i> Riwayat Pemeriksaan
@@ -102,7 +115,6 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="pastel-thead">
                         <tr>
-                            <th class="text-center" width="5%">ID</th>
                             <th>Foto</th>
                             <th>Tanggal</th>
                             <th>Keluhan</th>
@@ -116,7 +128,6 @@
                     <tbody>
                         @foreach ($pasien->riwayatPemeriksaan as $pemeriksaan)
                         <tr>
-                            <td class="text-center">{{ $pemeriksaan->id }}</td>
 
                             <td>
                                 @if($pemeriksaan->foto_kondisi_gigi)
@@ -131,7 +142,7 @@
                             <td>{{ $pemeriksaan->keluhan }}</td>
                             <td>{{ $pemeriksaan->diagnosa }}</td>
                             <td>{{ $pemeriksaan->tindakan }}</td>
-
+                            
                             <td>
                                 @php
                                 $raw = $pemeriksaan->resep;
