@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('foto_kondisi_gigi')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_pasien')->references('id')->on('pasiens')->onDelete('cascade');
+            $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
             $table->foreign('id_dokter')->references('id')->on('users')->onDelete('cascade');
         });
     }

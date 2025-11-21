@@ -96,6 +96,10 @@
 			object-fit: cover;
 			border: 2px solid #ddd;
 		}
+		.profile img:hover {
+			border-color: #bce0d1;
+			transition: 0.2s;
+		}
 		.profile span {
 			font-weight: 500;
 			color: #333;
@@ -187,6 +191,7 @@
 		<ul class="nav">
 			<a href="{{ route('pasien.dashboard') }}" class="{{ request()->routeIs('pasien.dashboard') ? 'active' : '' }}"><i class="bi bi-house-door"></i>Dashboard</a>
 		    <a href="{{ route('pasien.reservasi') }}" class="{{ request()->routeIs('pasien.reservasi') ? 'active' : '' }}"><i class="bi bi-clipboard-plus"></i>Buat Reservasi</a>
+			<a href="{{ route('pasien.jadwalpemeriksaan') }}" class="{{ request()->routeIs('pasien.jadwalpemeriksaan') ? 'active' : '' }}"><i class="bi bi-calendar-check"></i>Jadwal Pemeriksaan</a>
 		    <a href="{{ route('pasien.riwayatpemeriksaan') }}" class="{{ request()->routeIs('pasien.riwayatpemeriksaan') ? 'active' : '' }}"><i class="bi bi-clock-history"></i>Riwayat Pemeriksaan</a>
 		    <li>
             <a href="{{ route('logout') }}" class="logout"
@@ -205,11 +210,11 @@
 
 	<nav class="navbar-custom">
 		<div class="dropdown profile">
-			<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Foto Profil">
+			<img src="{{ Auth::user()->pasien && Auth::user()->pasien->foto_pasien ? asset('storage/' . Auth::user()->pasien->foto_pasien) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png'}}">
 			<a href="{{ route('pasien.profilesaya') }}" class="profile-name">{{ Auth::user()->username }}</a>
 		</div>
 	</nav>
-
+ 
     <div class="content">
 		@yield('content')
 	</div>

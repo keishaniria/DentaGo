@@ -78,7 +78,11 @@ Route::prefix('pasien')->group(function () {
          ->name('pasien.editprofil');
       Route::put('/profil/update', [ProfilController::class, 'update'])
          ->name('pasien.updateprofil');
+      Route::delete('/profil/hapus', [ProfilController::class, 'hapusAkun'])
+         ->name('pasien.hapusakun');
 
       Route::get('/riwayatpemeriksaan', [RiwayatpemeriksaanController::class, 'index'])
          ->name('pasien.riwayatpemeriksaan');
+      Route::get('riwayatpemeriksaan/{id}', [RiwayatpemeriksaanController::class, 'show'])
+         ->name('pasien.riwayatpemeriksaan.detail');
 });
