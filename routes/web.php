@@ -91,19 +91,22 @@ Route::prefix('pasien')->group(function () {
       ->name('pasien.reservasi');
    Route::post('/reservasi', [ReservasiController::class, 'store'])
       ->name('pasien.reservasi.store');
-
    Route::get('/jadwalpemeriksaan', [PasienJadwalController::class, 'index'])
       ->name('pasien.jadwalpemeriksaan');
    Route::get('/jadwalpemeriksaan{id}', [PasienJadwalController::class, 'show'])
       ->name('pasien.jadwalpemeriksaan.show');
-
+      
    Route::get('/profilsaya', [ProfilController::class, 'index'])
-      ->name('pasien.profilesaya');
+   ->name('pasien.profilesaya');
    Route::get('/profil/edit', [ProfilController::class, 'edit'])
       ->name('pasien.editprofil');
    Route::put('/profil/update', [ProfilController::class, 'update'])
       ->name('pasien.updateprofil');
+   Route::delete('/profil/hapus', [ProfilController::class, 'hapusAkun'])
+      ->name('pasien.hapusakun');
 
    Route::get('/riwayatpemeriksaan', [RiwayatpemeriksaanController::class, 'index'])
       ->name('pasien.riwayatpemeriksaan');
+   Route::get('riwayatpemeriksaan/{id}', [RiwayatpemeriksaanController::class, 'show'])
+      ->name('pasien.riwayatpemeriksaan.detail');
 });

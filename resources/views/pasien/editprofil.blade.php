@@ -49,6 +49,7 @@
 				<div class="col-md-4 text-center">
 					<img id="preview" @if($pasien->foto_pasien) src="{{ asset('storage/'.$pasien->foto_pasien) }}" @endif class="rounded-4 shadow-sm mb-4" style="width:170px; height:170px; object-fit:cover;">
 					<input type="file" name="foto_pasien" class="form-control mt-2">
+					<small id="foto-error" style="color: red; font-size: 13px;"></small>
 				</div>
 
 				<div class="col-md-8">
@@ -74,7 +75,6 @@
 						<label class="form-label">Alamat</label>
 						<textarea class="form-control" id="alamat" name="alamat" rows="3">{{ $pasien->alamat }}</textarea>
 					</div>
-
 
 					<div class="mb-3">
 						<label class="form-label">Email</label>
@@ -102,15 +102,22 @@
 </div> 
 
 <script>
-	document.querySelector('input[name="foto_pasien"]').addEventListener('change', function(e){
+	document.querySelector('input[name="foto_pasien"]').addEventListener('input', function(e){
     const file = this.files[0];
-    if(file){
-        const ext = file.name.split('.').pop().toLowerCase();
-        if(!['jpg','jpeg','png'].includes(ext)){
-            alert('File harus berupa jpg, jpeg, atau png!');
-            this.value = '';
-        }
-    }
+    const errorText = document.getElementById('foto-error');
+
+
+	if(file){
+		const ext = file.name.split('.').pop().toLowerCase();
+		if(!['jpg', 'jpeg', 'png'].includes(ext)){
+			errorText.textContent = 'File harus berupa jpg, jpeg, atau png!';
+			this.value = '';
+		}else{
+			errorText.textContent = '';
+		}
+	}else{
+		errorText.textContent = '';
+	}
 });
 </script>
 @endsection

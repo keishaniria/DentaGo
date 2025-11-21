@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Pasien;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pasien\Pasien;
+use App\Models\pasien\Reservasi;
+use App\Models\dokter\Pemeriksaan;
 use Illuminate\Support\Facades\Auth;
 
 class ProfilController extends Controller
@@ -64,6 +66,34 @@ class ProfilController extends Controller
 
         $pasien->save();
 
-        return redirect()->route('pasien.profilesaya');
+        return redirect()->route('pasien.profilesaya')
+                 ->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function hapusAkun(Request $request) {
+        $user = Auth::user();
+        $pasien = $user->pasien;
+
+        if($pasien && $pasien->foto_pasien) {
+            if(\Storage::exists('public/' . $pasien->foto_pasien)) {
+                \Storage::delete('public/' . $pasien->foto_pasien);
+            }
+        }
+
+       if ($pasien && method_exists($pasien, 'reservasi')) {
+            $pasien->reservasi()->delete();
+        }
+
+        if ($pasien && method_exists($pasien, 'pemeriksaan')) {
+            $pasien->pemeriksaan()->delete();
+        }
+
+        $pasien->delete();
+
+        $user->delete();
+
+        Auth::logout();
+
+        return redirect('/')->with('success', 'Akun mu berhasil dihapus.');
     }
 }

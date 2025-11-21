@@ -43,6 +43,17 @@ class ReservasiController extends Controller
         $user = auth()->user();
         $pasien = $user->pasien;
 
+        if (!$pasien->alamat || !$pasien->no_telepon) {
+            return redirect()->route('pasien.reservasi') 
+                     ->with('error', 'Silahkan lengkapi profil terlebih dahulu sebelum melakukan reservasi.');
+        }
+        
+        $request->validate([
+            'tanggal_reservasi' => 'required|date', 
+            'jam' => 'required|date_format:H:i|after_or_equal:07:00|before_or_equal:16:00',
+            'status' => 'nullable|string|in:menunggu,proses,selesai,batal'
+        ]);
+
         Reservasi::create([
             'id_pasien' => $pasien->id,
             'tanggal_reservasi' => $request->tanggal_reservasi,
@@ -50,7 +61,7 @@ class ReservasiController extends Controller
             'status' => 'Menunggu'
         ]);
 
-        return redirect()->route('pasien.jadwalpemeriksaan');
+       return redirect()->route('pasien.jadwalpemeriksaan')->with('success', 'Reservasi berhasil!');
     }
 
     public function mulai($id)

@@ -38,23 +38,23 @@
     }
 
     .btn-danger {
-        background-color: var(--bs-danger) !important;
-        border-color: var(--bs-danger) !important;
-        color: #000 !important;
+        background-color: #d9534f !important;
+        border-color:  #d9534f !important;
+        color: #fff !important;
         font-weight: 600;
     }
 
     .btn-danger:hover {
-        background-color: #eab5b5 !important;
-        border-color: #eab5b5 !important;
+        background-color: #c64541 !important;
+        border-color: #c64541 !important;
     }
 
-    .text-danger {
-        color: var(--bs-danger) !important;
+    .text-danger { 
+        color: #d9534f !important;
     }
 
     .border-danger {
-        border-color: var(--bs-danger) !important;
+        border-color: #d9534f !important;
     }
 
 	.profile-content a {
@@ -76,6 +76,14 @@
 
 <div class="container-fluid">
 	<div class="mx-auto" style="max-width: 900px;">
+
+	    @if(session('success'))
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				{{ session('success') }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		@endif
+
 		<h4 class="mb-3">Profil Saya</h4>
 
 		<div class="card shadow-sm border-0 rounded-0 overflow-hidden">
@@ -138,9 +146,39 @@
 	<hr class="my-4">
 
 	<div class="text-center mt-4">
-		<button class="btn btn-danger rounded-pill px-4 py-2" onclick="confirmDeleter()">
+		<button class="btn btn-danger rounded-pill px-4 py-2" data-bs-toggle="modal" data-bs-target="#modalHapusAkun">
 			<span class="fw-semibold">Hapus Akun</span>
 		</button>
 	</div>
+</div>
+
+<div class="modal fade" id="modalHapusAkun" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title text-danger fw-bold">Hapus Akun</h5>
+      </div>
+
+      <div class="modal-body">
+        <p class="mb-0">
+          Yakin ingin menghapus akun? Semua data mu termasuk riwayat reservasi dan pemeriksaan akan ikut terhapus.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+
+        <form action="{{ route('pasien.hapusakun') }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger fw-semibold">
+                Hapus 
+            </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>
 @endsection
