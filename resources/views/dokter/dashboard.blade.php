@@ -7,174 +7,113 @@
         background-color: #f5f7fa !important;
     }
 
-    .card-header {
-        background-color: #bce0d1 !important; 
-        color: #2c3e50 !important;
+    .greeting {
+        font-size: 22px;
         font-weight: 600;
+        color: #244c42;
+        margin-bottom: 4px;
     }
-    
+
+    .greeting span {
+        font-weight: 800;
+        color: #0f3a2b;
+    }
+
+    .sub-greeting {
+        font-size: 15px;
+        color: #4f6f62;
+        margin-bottom: 25px;
+        margin-top: -4px;
+    }
+
     .stat-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
         margin: 25px 0;
     }
 
     .stat-card {
-        border-radius: 20px;
-        padding: 25px 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        text-align: center;
-        transition: .2s ease;
-    }
-
-    .stat-card:nth-child(1) {
-        background-color: #CDEDE3 !important; 
-    }
-
-    .stat-card:nth-child(2) {
-        background-color: #F7DDE2 !important; 
-    }
-
-    .stat-card:nth-child(3) {
-        background-color: #D9EAFB !important; 
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border-radius: 22px;
+        padding: 24px 22px;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.10);
+        transition: 0.2s ease;
+        height: 140px;
     }
 
     .stat-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.11);
+        box-shadow: 0 12px 20px rgba(0,0,0,0.14);
     }
 
-    .stat-card h3 {
+    .stat-icon {
+        font-size: 48px;
+        opacity: 0.8;
+    }
+
+    .stat-info h3 {
         font-size: 38px;
-        font-weight: 700;
+        font-weight: 800;
         margin: 0;
         color: #0f3a2b;
     }
 
-    .stat-card p {
-        margin: 8px 0 0;
-        color: #1e4d3b;
-        font-weight: 500;
-        font-size: 15px;
-    }
-
-    .table-custom thead tr {
-        background-color: #bce0d1 !important;
-    }
-
-    .table-custom tbody tr:hover {
-        background-color: #e9f6ef !important;
-        transition: .2s;
-    }
-
-    .card-soft {
-        border: none;
-        border-radius: 18px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-    }
-
-    .card-header-soft {
-        background: #ffffff;
-        border-bottom: none;
+    .stat-info p {
+        margin: 6px 0 0;
         font-weight: 600;
-        padding: 18px 22px;
-        border-radius: 18px 18px 0 0;
-        font-size: 17px;
+        font-size: 16px;
+        color: #264b3d;
     }
 
-    .badge-soft-green {
-        background-color: #a4d6b9;
-        color: #0f3a2b;
-        padding: 6px 14px;
-        border-radius: 15px;
-        font-weight: 600;
-    }
+    .card-green { background-color: #CDEDE3; }
+    .card-pink  { background-color: #F7DDE2; }
+    .card-blue  { background-color: #D9EAFB; }
 
-    .badge-soft-yellow {
-        background-color: #f3e5a0;
-        color: #7a6a00;
-        padding: 6px 14px;
-        border-radius: 15px;
-        font-weight: 600;
-    }
 
-    .badge-soft-blue {
-        background-color: #d0e8ff;
-        color: #0b4c86;
-        padding: 6px 14px;
-        border-radius: 15px;
-        font-weight: 600;
-    }
 </style>
 
+<div class="greeting">
+    Halo, <span>{{ auth()->user()->username }}</span> 
+</div>
 
+<p class="sub-greeting">
+    Semoga harimu menyenangkan dalam merawat senyum para pasien. Yuk lihat apa saja yang perlu kamu periksa hari ini!
+</p>
 
 <h2 class="fw-bold mb-3">
     <i class="bi bi-clipboard2-pulse me-2"></i> Dashboard Dokter
 </h2>
 
+{{-- STAT CARDS --}}
 <div class="stat-container">
-    <div class="stat-card">
-        <h3>12</h3>
-        <p>Pasien Hari Ini</p>
+
+    <div class="stat-card card-green">
+        <i class="bi bi-people-fill stat-icon"></i>
+        <div class="stat-info">
+            <h3>{{ $data['pasien_hari_ini'] }}</h3>
+            <p>Pasien Hari Ini</p>
+        </div>
     </div>
 
-    <div class="stat-card">
-        <h3>5</h3>
-        <p>Jadwal Pemeriksaan</p>
+    <div class="stat-card card-pink">
+        <i class="bi bi-calendar2-check stat-icon"></i>
+        <div class="stat-info">
+            <h3>{{ $data['jadwal_hari_ini'] }}</h3>
+            <p>Jadwal Pemeriksaan</p>
+        </div>
     </div>
 
-    <div class="stat-card">
-        <h3>3</h3>
-        <p>Reservasi Menunggu</p>
-    </div>
-</div>
-
-<div class="card card-soft mt-4">
-    <div class="card-header">
-        Jadwal Pemeriksaan Hari Ini
+    <div class="stat-card card-blue">
+        <i class="bi bi-person-vcard-fill stat-icon"></i>
+        <div class="stat-info">
+            <h3>{{ $data['total_pasien'] }}</h3>
+            <p>Total Pasien Terdaftar</p>
+        </div>
     </div>
 
-    <div class="card-body p-4">
-        <table class="table table-hover align-middle table-custom">
-            <thead>
-                <tr>
-                    <th>Nama Pasien</th>
-                    <th>Tanggal</th>
-                    <th>Jam</th>
-                    <th>Jenis Pemeriksaan</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Rian Pratama</td>
-                    <td></td>
-                    <td></td>
-                    <td>Pemeriksaan Gigi Berlubang</td>
-                    <td><span class="badge-soft-green">Selesai</span></td>
-                </tr>
-
-                <tr>
-                    <td>Siti Nurhaliza</td>
-                    <td></td>
-                    <td></td>
-                    <td>Tambal Gigi</td>
-                    <td><span class="badge-soft-yellow">Menunggu</span></td>
-                </tr>
-
-                <tr>
-                    <td>Keisha Aniria</td>
-                    <td></td>
-                    <td></td>
-                    <td>Pembersihan Karang Gigi</td>
-                    <td><span class="badge-soft-blue">Proses</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 </div>
 
 @endsection

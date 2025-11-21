@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemeriksaans', function (Blueprint $table) {
+        Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pasien');
             $table->unsignedBigInteger('id_dokter')->nullable();
-            $table->text('keluhan')->nullable();
-            $table->text('diagnosa')->nullable();
-            $table->text('tindakan')->nullable();
-            $table->text('resep')->nullable();
-            $table->date('tanggal_pemeriksaan')->nullable();
-            $table->string('foto_kondisi_gigi')->nullable();
+            $table->date('tanggal');
+            $table->time('jam');
+            $table->string('jenis_pemeriksaan')->nullable();
+            $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal'])->default('Menunggu');
             $table->timestamps();
-
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
             $table->foreign('id_dokter')->references('id')->on('users')->onDelete('cascade');
         });
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemeriksaans');
+        Schema::dropIfExists('jadwals');
     }
 };
