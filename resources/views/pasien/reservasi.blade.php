@@ -85,7 +85,7 @@ $profilLengkap = $pasien->alamat && $pasien->no_telepon;
                 <div class="col-md-6">
                     <label class="form-label fw-semibold text-secondary">Tanggal</label>
                     <select id="tanggal_reservasi" name="tanggal_reservasi" class="form-control" {{ $profilLengkap ? '' : 'disabled' }} required>
-                        <option value="">Pilih Tanggal</option>
+                        <option value="">Pilih Tanggal Dulu</option>
                         @foreach($jadwalDokter as $jd)
                             <option value="{{ $jd->tanggal }}"
                                 data-mulai="{{ $jd->jam_mulai }}"

@@ -85,7 +85,7 @@ $today = Carbon::today();
     </div>
 
     <p style="margin-top: 10px; font-size: 15px; line-height: 1.5;">
-        Selamat datang di <strong>Dentago</strong>.  
+        Selamat datang di <strong>DentaGo</strong>.  
         Yuk, cek jadwal pemeriksaan gigimu atau buat reservasi baru supaya senyummu tetap sehat dan menawan!
     </p>
 </div>

@@ -10,6 +10,7 @@ use App\Models\pasien\reservasi;
 class JadwalpemeriksaanController extends Controller
 {
    public function index() {
+
       $user = auth()->user();
       $pasien = $user->pasien;
 

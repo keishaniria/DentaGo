@@ -70,7 +70,7 @@
 				<thead style="background-color: #f4f6f9; color: #243447; font-weight: 600;">
 					<tr>
 						<th>Nama</th>
-						<th>Tanggal Reservasi</th>
+						<th>Tanggal Pemeriksaan</th>
 						<th>Jam</th>
 						<th>Status</th>
 						<th>Aksi</th>

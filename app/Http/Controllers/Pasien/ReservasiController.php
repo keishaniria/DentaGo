@@ -4,23 +4,26 @@ namespace App\Http\Controllers\Pasien;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Pasien\Pasien;
+use App\Models\pasien\Pasien;
 use App\Models\Pasien\Reservasi;
 use App\Models\Dokter\DokterJadwalPraktek;
 
 class ReservasiController extends Controller
 {
-    public function index()
+   public function index()
     {
         $user = auth()->user();
         $pasien = $user->pasien;
 
-        // Ambil daftar jadwal dokter yang tersedia
+        if (!$pasien) {
+            return redirect()->route('pasien.profilesaya')
+                ->with('error', 'Silakan lengkapi data pasien terlebih dahulu.');
+        }
+
         $jadwalDokter = DokterJadwalPraktek::orderBy('tanggal', 'asc')
             ->orderBy('jam_mulai', 'asc')
             ->get();
 
-        // Ambil daftar reservasi pasien
         $reservasi = Reservasi::where('id_pasien', $pasien->id)
             ->orderBy('tanggal_reservasi', 'desc')
             ->get();

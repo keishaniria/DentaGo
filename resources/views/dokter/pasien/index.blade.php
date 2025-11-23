@@ -66,7 +66,9 @@
                     </td>
                     <td>{{ $p->nama_pasien }}</td>
                     <td>{{ $p->jenis_kelamin }}</td>
-                    <td>{{ $p->tanggal_lahir->format('Y-m-d') }}</td>
+                    <td>
+                        {{ $p->tanggal_lahir ? \Carbon\Carbon::parse($p->tanggal_lahir)->format('Y-m-d') : '-' }}
+                    </td>
                     <td>{{ $p->no_telepon }}</td>
                     <td>{{ $p->alamat }}</td>
                     <td>
