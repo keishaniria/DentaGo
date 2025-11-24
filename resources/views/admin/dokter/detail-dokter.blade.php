@@ -2,7 +2,7 @@
 
 @section('title', 'Detail Dokter')
 
-@section('content')
+@section('content-detail')
 
 <style>
     :root {

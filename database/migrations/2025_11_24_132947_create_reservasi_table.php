@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pasien');
-            $table->unsignedBigInteger('id_dokter')->nullable();
+            $table->unsignedBigInteger('id_dokter');
             $table->date('tanggal_reservasi');
             $table->time('jam');
             $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal'])->default('Menunggu');
