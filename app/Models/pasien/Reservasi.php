@@ -38,7 +38,6 @@ class Reservasi extends Model
 
         static::updated(function ($reservasi) {
 
-        // Kalau status berubah → update jadwal
             if ($reservasi->isDirty('status')) {
                 Jadwal::where('id_reservasi', $reservasi->id)
                     ->update([

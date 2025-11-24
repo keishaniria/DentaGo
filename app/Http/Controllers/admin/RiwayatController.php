@@ -14,8 +14,8 @@ class RiwayatController extends Controller
     //
     public function index()
     {
-        $riwayat = RiwayatPemeriksaan::with(['pasien', 'dokter'])
-            ->orderBy('tanggal_pemeriksaan', 'asc')
+        $riwayat = Pemeriksaan::with(['pasien', 'dokter'])
+            ->orderBy('tanggal_pemeriksaan', 'desc')
             ->get();
 
         return view('admin.pemeriksaan.riwayat-pemeriksaan', compact('riwayat'));
@@ -23,6 +23,10 @@ class RiwayatController extends Controller
 
     public function exportXlsx()
     {
+        $riwayat = Pemeriksaan::with(['pasien', 'dokter'])
+            ->orderBy('tanggal_pemeriksaan', 'desc')
+            ->get();
+
         $filename = 'riwayat_pemeriksaan_' . now()->format('Y_m') . '.xlsx';
 
         $riwayat = Pemeriksaan::with(['pasien', 'dokter'])

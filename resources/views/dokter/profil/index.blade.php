@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col-md-4 text-center">
                         <img
-                            src="{{ $user->foto_dokter ? asset('images/' . $user->foto_dokter) : asset('images/foto_dokter.jpg') }}"
+                            src="{{ $dokter->foto_dokter ? asset('images/' . $dokter->foto_dokter) : asset('images/foto_dokter.jpg') }}"
                             class="dokter-photo"
                             alt="Foto Dokter">
 
@@ -77,12 +77,12 @@
 
                         <div class="dokter-info-box">
                             <label class="dokter-label">Nama Dokter</label>
-                            <div class="dokter-value">{{ $user->username }}</div>
+                            <div class="dokter-value">{{ $dokter->nama_dokter }}</div>
                         </div>
 
                         <div class="dokter-info-box">
                             <label class="dokter-label">Nomor Telepon</label>
-                            <div class="dokter-value">{{ $user->no_telp }}</div>
+                            <div class="dokter-value">{{ $dokter->no_telp }}</div>
                         </div>
 
                     </div>

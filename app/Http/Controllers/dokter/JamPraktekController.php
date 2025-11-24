@@ -35,7 +35,7 @@ class JamPraktekController extends Controller
         ]);
 
         DokterJadwalPraktek::create([
-            'id_dokter' => auth()->id(),
+            'id_dokter' => auth()->user()->dokter->id,
             'tanggal' => $request->tanggal,
             'jam_mulai' => $request->jam_mulai,
             'jam_selesai' => $request->jam_selesai,

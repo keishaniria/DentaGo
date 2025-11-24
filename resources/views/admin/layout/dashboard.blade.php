@@ -147,7 +147,7 @@
             <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="bi bi-house-door"></i>Dashboard</a></li>
 		    <li><a href="{{ route('admin.dokter.index') }}" class="{{ request()->routeIs('admin.dokter.*') ? 'active' : '' }}"><i class="bi bi-person"></i> Data Dokter</a></li>
 		    <li><a href="{{ route('admin.pasien.index') }}" class="{{ request()->routeIs('admin.pasien.*') ? 'active' : '' }}"><i class="bi bi-people me-2"></i> Data Pasien</a></li>
-		    <li><a href="{{ route('admin.pemeriksaan.index') }}" class="{{ request()->routeIs('admin.riwayat.*') ? 'active' : '' }}"><i class="bi bi-book-half"></i> Riwayat Pemeriksaan</a></li>
+		    <li><a href="{{ route('admin.pemeriksaan.index') }}" class="{{ request()->routeIs('admin.pemeriksaan.*') ? 'active' : '' }}"><i class="bi bi-book-half"></i> Riwayat Pemeriksaan</a></li>
             <li>
                 <a href="{{ route('logout') }}" class="logout"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

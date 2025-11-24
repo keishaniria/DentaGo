@@ -32,7 +32,7 @@
     flex-direction: column;
     border-radius: 12px;
     padding: 20px 22px;
-	justify-content: center; /* vertical center */
+	justify-content: center;
     align-items: center;
     background: #fff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -40,15 +40,11 @@
 
 }
 
-
-
-/* Judul statistik lebih rapat */
 .dashboard-title {
     margin-left: 5px;
     margin-bottom: 15px;
 }
 
-/* Konten geser sedikit dari sidebar */
 .content {
     margin-left: 270px !important;
     padding: 90px 40px !important;
@@ -58,7 +54,6 @@
     transform: translateY(-3px);
 }
 
-/* PIE CHART COLUMN */
 .chart-box {
     background: #fff;
     padding: 20px;
@@ -66,13 +61,12 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: 0.25s;
 
-	display: flex;           /* aktifkan flexbox */
-    flex-direction: column;  /* susunan vertikal */
-    justify-content: center; /* vertical center */
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-/* HEADING */
 .title-section {
     text-align: left;
     margin-bottom: 30px;
@@ -80,9 +74,6 @@
     font-weight: 700;
 }
 
-
-
-/* RESPONSIVE */
 @media (max-width: 900px) {
     .dashboard-wrapper {
         grid-template-columns: 1fr;

@@ -12,13 +12,15 @@ class JadwalPemeriksaanController extends Controller
     //
     public function index()
     {
+        $dokter = auth()->user()->dokter; 
+
         $jadwal = Jadwal::with('pasien')
+            ->where('id_dokter', $dokter->id)
             ->orderBy('jam', 'asc')
             ->get();
 
         return view('dokter.jadwal.index', compact('jadwal'));
     }
-
 
     public function updateStatus(Request $request, $id)
     {

@@ -2,11 +2,11 @@
 
 @section('title', 'Detail Dokter')
 
-@section('content-detail')
+@section('content-admin')
 
 <style>
     :root {
-        --bs-primary: #bce0d1 !important;
+        --bs-primary: #2c3e50 !important;
         --bs-primary-rgb: 188, 224, 209 !important;
 
         --bs-danger: #f8c6c6 !important;
@@ -87,7 +87,7 @@
 		<h4 class="mb-3">Detail dokter</h4>
 
 		<div class="card shadow-sm border-0 rounded-0 overflow-hidden">
-			<div style="background: #f4f6f9; padding: 14px 22px; display: flex; justify-content: space-between; align-items: center;">
+			<div style="background: #bce0d1; padding: 14px 22px; display: flex; justify-content: space-between; align-items: center;">
 				<h6 class="fw-bold mb-0 text-primary">Informasi Drg. {{ $dokter->nama_dokter }}</h6>
                 
 			</div>
