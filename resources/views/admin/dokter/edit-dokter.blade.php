@@ -2,7 +2,7 @@
 
 @section('title', 'Edit Profil')
 
-@section('content')
+@section('content-admin')
 <style>
     :root {
         --bs-primary: #bce0d1 !important;

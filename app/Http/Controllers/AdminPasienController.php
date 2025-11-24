@@ -13,7 +13,7 @@ class AdminPasienController extends Controller
     {
         $today = now()->toDateString();
 
-        $reservasi = \App\Models\Pasien\Reservasi::with('pasien')
+        $reservasi = Reservasi::with('pasien')
             ->whereDate('created_at', $today)
             ->where('status', '!=', 'Batal')
             ->get();
