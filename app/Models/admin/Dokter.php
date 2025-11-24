@@ -17,8 +17,6 @@ class Dokter extends Model
         'id_users',
         'nama_dokter',
         'no_telp',
-        // 'password',
-        // 'role'
         'foto'
     ];
 

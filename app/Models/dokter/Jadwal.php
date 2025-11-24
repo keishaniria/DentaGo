@@ -5,6 +5,7 @@ namespace App\Models\dokter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Pasien\Pasien;
+use App\Models\Pasien\Reservasi;
 use App\Models\User;
 
 class Jadwal extends Model
@@ -17,6 +18,7 @@ class Jadwal extends Model
     protected $fillable = [
         'id_pasien',
         'id_dokter',
+        'id_reservasi',
         'tanggal',
         'jam',
         'jam_mulai',
@@ -33,5 +35,9 @@ class Jadwal extends Model
     public function dokter()
     {
         return $this->belongsTo(User::class, 'id_dokter', 'id');
+    }
+    public function reservasi()
+    {
+        return $this->belongsTo(Reservasi::class, 'id_reservasi', 'id');
     }
 }

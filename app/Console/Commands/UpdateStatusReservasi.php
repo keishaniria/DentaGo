@@ -20,11 +20,11 @@ class UpdateStatusReservasi extends Command
             ->whereTime('jam', '<=', $now->format('H:i:s'))
             ->update(['status' => 'Proses']);
 
-        $now30 = $now->copy()->subMinutes(30);
+        $now1 = $now->copy()->subMinutes(1);
 
         $affected2 = Reservasi::where('status', 'Proses')
             ->whereRaw("TIMESTAMP(tanggal_reservasi, jam) <= ?", [
-                $now30->toDateTimeString()
+                $now1->toDateTimeString()
             ])
             ->update(['status' => 'Selesai']);
 

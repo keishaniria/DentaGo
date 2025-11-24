@@ -22,7 +22,7 @@ return new class extends Migration
             $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
-            $table->foreign('id_dokter')->references('id')->on('dokter_gigi')->onDelete('cascade');
+            $table->foreign('id_dokter')->references('id')->on('dokters')->onDelete('cascade');
         });
     }
 

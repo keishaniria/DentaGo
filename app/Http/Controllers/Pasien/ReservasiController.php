@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Pasien;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pasien\Pasien;
+use App\Models\admin\Dokter;
+use App\Models\dokter\Jadwal;
 use App\Models\Pasien\Reservasi;
 use App\Models\Dokter\DokterJadwalPraktek;
 
@@ -15,12 +17,10 @@ class ReservasiController extends Controller
         $user = auth()->user();
         $pasien = $user->pasien;
 
-        // Ambil daftar jadwal dokter yang tersedia
         $jadwalDokter = DokterJadwalPraktek::orderBy('tanggal', 'asc')
             ->orderBy('jam_mulai', 'asc')
             ->get();
 
-        // Ambil daftar reservasi pasien
         $reservasi = Reservasi::where('id_pasien', $pasien->id)
             ->orderBy('tanggal_reservasi', 'desc')
             ->get();
@@ -53,9 +53,11 @@ class ReservasiController extends Controller
             'jam' => 'required|date_format:H:i|after_or_equal:07:00|before_or_equal:16:00',
             'status' => 'nullable|string|in:menunggu,proses,selesai,batal'
         ]);
-
+        
+        
         Reservasi::create([
             'id_pasien' => $pasien->id,
+            'id_dokter' => 1,
             'tanggal_reservasi' => $request->tanggal_reservasi,
             'jam' => $request->jam,
             'status' => 'Menunggu'
@@ -70,16 +72,41 @@ class ReservasiController extends Controller
         $r->status = 'Proses';
         $r->save();
 
+        Jadwal::updateOrCreate(
+            ['id_reservasi' => $r->id],
+            [
+                'id_pasien' => $r->id_pasien,
+                'id_dokter' => $r->id_dokter,
+                'tanggal' => $r->tanggal_reservasi,
+                'jam' => $r->jam,
+                'jenis_pemeriksaan' => null,
+                'status' => 'Proses',
+            ]
+        );
+
         return back()->with('success', 'Pemeriksaan telah dimulai');
     }
+
 
     public function selesai($id)
     {
         $r = Reservasi::findOrFail($id);
-        $r->status = 'Selesai';
+        $r->status = 'Proses';
         $r->save();
 
-        return back()->with('success', 'Pemeriksaan selesai');
+        Jadwal::updateOrCreate(
+            ['id_reservasi' => $r->id],
+            [
+                'id_pasien' => $r->id_pasien,
+                'id_dokter' => $r->id_dokter,
+                'tanggal' => $r->tanggal_reservasi,
+                'jam' => $r->jam,
+                'jenis_pemeriksaan' => null,
+                'status' => 'Proses',
+            ]
+        );
+
+        return back()->with('success', 'Pemeriksaan telah dimulai');
     }
 
     public function batal($id)

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\DokterController;
+use App\Http\Controllers\Admin\RiwayatController;
+use App\Http\Controllers\AdminPasienController;
 use App\Http\Controllers\Dokter\DashboardController as DokterDashboardController;
 use App\Http\Controllers\Dokter\JadwalPemeriksaanController as DokterJadwalController;
 use App\Http\Controllers\Dokter\JamPraktekController;
@@ -19,7 +21,6 @@ use App\Http\Controllers\Pasien\RiwayatpemeriksaanController;
 use App\Http\Controllers\Pasien\ProfilController;
 use App\Http\Controllers\AuthController;
 
-
 Route::get('/', function () {
 
    return view('sign-in');
@@ -31,10 +32,7 @@ Route::post('/sign-up/submit', [AuthController::class, 'submitSignup'])->name('s
 Route::get('/sign-in', [AuthController::class, 'showSignin'])->name('login.show');
 Route::post('/sign-in/submit', [AuthController::class, 'submitSignin'])->name('login.submit');
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// Route::get('/dokter/dashboard', [DokterDashboardController::class, 'index'])
-//     ->name('dokter.dashboard');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');;
 
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])
@@ -44,25 +42,40 @@ Route::prefix('admin')->group(function () {
 
    Route::patch('/reservasi/{id}/status', [ReservasiController::class, 'updateStatus'])
         ->name('admin.reservasi.updateStatus');
+   
+   Route::get('/riwayat-pemeriksaan', [RiwayatController::class, 'index'])
+         ->name('admin.pemeriksaan.index');
+   Route::get('/riwayat-pemeriksaan/export-excel', [RiwayatController::class, 'exportXlsx'])
+         ->name('admin.riwayat.export.xlsx');
 
     //dokter
-    Route::get('/dokter/dashboard', [DokterController::class, 'index'])
-        ->name('admin.dokter.index');
-    Route::get('/dokter/tambah-data', [DokterController::class, 'create'])
-        ->name('admin.dokter.tambah-dokter');
-    Route::post('/dokter/tambah-data', [DokterController::class, 'store'])
-        ->name('admin.dokter.store');
+   Route::get('/dokter', [DokterController::class, 'index'])
+      ->name('admin.dokter.index');
+   Route::get('/dokter/tambah-data', [DokterController::class, 'create'])
+      ->name('admin.dokter.tambah-dokter');
+   Route::post('/dokter/tambah-data', [DokterController::class, 'store'])
+      ->name('admin.dokter.store');
+   Route::get('/dokter/detail-dokter/{id}', [DokterController::class, 'show'])
+         ->name('admin.dokter.detail');
+   Route::get('/dokter/edit-dokter/{id}', [DokterController::class, 'edit'])
+      ->name('admin.dokter.edit');
+   Route::put('/dokter/edit-dokter/{id}', [DokterController::class, 'update'])
+      ->name('admin.dokter.update');
+   Route::get('/dokter/{id}', [DokterController::class, 'destroy'])
+        ->name('admin.dokter.delete');
 
    //pasien
-   Route::get('/dokter/tambah-data', [DokterController::class, 'create'])
-        ->name('admin.dokter.tambah-dokter');
+   Route::get('/pasien', [AdminPasienController::class, 'index'])
+        ->name('admin.pasien.index');
+   Route::get('/reservasi/{id}/cancelled', [AdminPasienController::class, 'cancel'])
+        ->name('admin.pemeriksaan.cancel');
 });
 
 // Halaman Jadwal Pemeriksaan Dokter
 Route::prefix('dokter')->group(function () {
    Route::get('/dashboard', [DokterDashboardController::class, 'index'])->name('dokter.dashboard');
    Route::get('/jadwal', [JadwalPemeriksaanDokterController::class, 'index'])->name('dokter.jadwal.index');
-   //Route::post('/jadwal/update-status/{id}', [JadwalPemeriksaanController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
+   Route::put('/dokter/jadwal/{id}/status', [DokterJadwalController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
    Route::delete('/jadwal/{id}', [JadwalPemeriksaanDokterController::class, 'destroy'])->name('dokter.jadwal.destroy');
    Route::post('/store', [JamPraktekController::class, 'store'])->name('dokter.jadwal.store');
 

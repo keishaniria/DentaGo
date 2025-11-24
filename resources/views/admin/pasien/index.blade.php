@@ -1,210 +1,132 @@
-@extends('layout.app')
+@extends('admin.layout.dashboard')
 
-@section('title', 'Dashboard')
+@section('title', 'Data pasien')
 
-@section('content')
-    <style>
-        body {
-			font-family: 'Poppins', sans-serif;
-			background-color: #F4F6F9;
-			margin: 0;
-		}
+@section('content-admin')
 
-		.sidebar {
-			position: fixed;
-			top: 0;
-            left: 0;
-			height: 100vh;
-			width: 250px;
-			background-color: #243447;
-			color: #ECF0F1;
-			padding-top: 20px;
-			box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-		}
-		.sidebar .brand {
-			font-size: 22px;
-			font-weight: 700;
-			color: #4BC590;
-			text-align: center;
-			margin-bottom: 40px;
-		}
-		.sidebar .nav {
-			list-style: none;
-			padding: 0;
-			margin: 0;
-		}
-		.sidebar .nav li {
-			margin: 8px 0;
-		}
-		.sidebar .nav a {
-			color: #ECF0F1;
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			text-decoration: none;
-			padding: 12px 20px;
-			font-weight: 500;
-			transition: all 0.3s ease;
-			border-left: 4px solid transparent;
-		}
-		.sidebar .nav a:not(.logout):hover,
-		.sidebar .nav a:not(.logout).active {
-			background-color: #2F4257;
-			color: #4BC590;
-			border-left: 4px solid #4BC590;
-			box-shadow: inset 2px 2px 5px rgba(0,0,0,0.25);
-            transform: translateY(1px);
-			transition: all 0.2s ease;
-		}
-		.sidebar .nav a.logout {
-            color: #E74C3C;
-			border-left: 4px solid transparent;
-			transition: all 0.3s ease;
-		}
-		.sidebar .nav a i {
-			font-size: 18px;
-		}
-
-		.navbar-custom{
-			margin-left: 250px;
-			height: 65px;
-			background-color: #ffffff;
-			box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-			padding: 10px 10px;
-			position: sticky;
-			top: 0;
-			z-index: 99;
-		}
-
-		.profile {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			cursor: pointer;
-		}
-		.profile img {
-			width: 40px;
-			height: 40px;
-			border-radius: 50%;
-			object-fit: cover;
-			border: 2px solid #ddd;
-			transition: all 0.3s ease;
-		}
-		.profile img:hover {
-			border-color: #4BC590;
-			transform: scale(1.05);
-		}
-		.profile span {
-			font-weight: 500;
-			color: #333;
-		}
-
-		.content {
-			margin-left: 100px;
-			padding: 40px 50px;
-			background-color: #f9fbfc;
-			min-height: 100vh;
-		}
-        .content h4 {
-			color: #243447;
-			font-weight: 700;
-			font-size: 26px;
-			margin-bottom: 8px;
-			display: flex;
-			align-items: center;
-			gap: 6px;
-		}
-		.content h4::after{
-			font-size: 22px;
-		}
-		.content p {
-			color: #555;
-			font-size: 15.5px;
-			line-height: 1.7;
-			max-width: 700px;
-			margin-bottom: 35px;
-		}
-		.content span {
-			color: #4BC590;
-			font-weight: 700;
-		}
-		.content strong {
-			color: #243447;
-		}
-
-		.card-container {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 20px;
-			margin-top: 30px;
-		}
-		.card-dashboard {
-			flex: 1;
-			min-width: 200px;
-			background-color: #ffffff;
-			border-radius: 25px;
-			text-align: center;
-			transition: all 0.3s ease;
-			border-top: 4px solid #4BC590;
-		}
-		.card-dashboard:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-		}
-		.card-dashboard i {
-			font-size: 35px;
-			color: #4BC590;
-			margin-bottom: 10px;
-		}
-		.card-dashboard h5 {
-			font-size: 16px;
-			font-weight: 600;
-			color: #243447;
-			margin-bottom: 8px;
-		}
-		.card-dashboard p {
-			color: #666;
-			font-size: 14px;
-			margin: 0;
-		}
-    </style>
+<h2 class="fw-bold mb-3">
+    <i class="bi bi-person-fill"></i> Data Dokter
+</h2>
 
 
-    <aside class="sidebar">
-        <div>
-            <p class="brand">DentaGo</p>
-        </div>
-        <div class="nav">
-            <li>
-                <a href="#" class="active">
-                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                </a>
-                <a href="#" class="">
-                    <i class="bi bi-person"></i> Data Dokter
-                </a>
-                <a href="#" class="">
-                    <i class="bi bi-people me-2"></i> Data Pasien
-                </a>
-                <a href="{{ route('logout') }}" class="logout"
-				onclick="alert('Logout diklik'); event.preventDefault(); document.getElementById('logout-form').submit();">
-					Logout
-				</a>
+<style>
+    .card-header {
+        background-color: #bce0d1 !important; 
+        color: #2c3e50 !important;
+        font-weight: 600;
+    }
 
-            </li>
-			<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-				@csrf
-			</form>
-        </div>
-    </aside>
+    .table thead {
+        background-color: #bce0d1 !important;
+    }
 
-    <nav class="navbar-custom">
-		<div class="profile">
-			<span>Admin</span>
-			<img src="" alt="profile">
-		</div>
-	</nav>
+    .table-hover tbody tr:hover {
+        background-color: #f3f8f6 !important;
+    }
+
+    .badge-menunggu {
+		background-color: #ffe9a7 !important;
+		color: #5a4c17 !important;
+	}
+
+	.badge-proses {
+		background-color: #a6e3f5 !important;
+		color: #0b3c4a !important;
+	}
+
+	.badge-selesai {
+		background-color: #9ad7b3 !important;
+		color: #0d3b29 !important;
+	}
+
+	.badge-batal {
+		background-color: #f8c6c6 !important;
+		color: #7a1f1f !important;
+	}
+
+    .img-pasien {
+        border: 2px solid #d9ebe4;
+        padding: 2px;
+    }
+</style>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header">
+        Daftar Pasien
+    </div>
+    <div class="card-body">
+        <table class="table table-hover align-middle">
+            <thead class="text-center">
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Pasien</th>
+                    <th>Nama Dokter</th>
+                    <th>No. Telp</th>
+                    <th>Alamat</th>
+                    <th>Tanggal Pemeriksaan</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($riwayat as $r)
+                <tr class="text-center">
+                    <td>{{ $r->id }}</td>
+                    <td>{{ $r->pasien->nama_pasien }}</td>
+                    <td>{{ $r->dokter->nama_dokter }}</td>
+                    <td>{{ $r->pasien->no_telepon }}</td>
+                    <td>{{ $r->pasien->alamat }}</td>
+                    <td>{{ $r->created_at->format('Y-m-d') ?? '-' }}</td>
+                    <td>
+                        <span class="badge rounded-pill px-3 py-2 
+								@if($r->status == 'Menunggu') badge-menunggu
+								@elseif($r->status == 'Proses') badge-proses
+								@elseif($r->status == 'Selesai') badge-selesai
+								@elseif($r->status == 'Batal') badge-batal
+								@endif
+							">{{ $r->status }}
+                        </span>
+                    </td>
+                    <td>
+                        @if($r->status !== 'batal' && $r->status !== 'selesai')
+                            <a href="{{ route('admin.pemeriksaan.cancel', $r->id) }}"
+                                class="btn btn-danger btn-sm btn-cancel"
+                                data-id="{{ $r->id }}">
+                                Batalkan
+                            </a>
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.querySelectorAll('.btn-cancel').forEach(btn => {
+    btn.addEventListener('click', function(e){
+        e.preventDefault();
+
+        let url = this.getAttribute('href'); // ⬅ ambil URL asli dari route
+
+        Swal.fire({
+            title: "Batalkan reservasi?",
+            text: "Aksi ini tidak bisa dikembalikan!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d9534f",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Ya, batalkan!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    });
+});
+</script>
 
 @endsection

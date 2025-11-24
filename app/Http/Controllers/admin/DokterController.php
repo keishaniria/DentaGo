@@ -18,6 +18,12 @@ class DokterController extends Controller
         return view('admin.dokter.index', compact('dokter'));
     }
 
+    public function show($id)
+    {
+        $dokter = Dokter::findOrFail($id);
+        return view('admin.dokter.detail-dokter', compact('dokter'));
+    }
+
     public function create()
     {
         return view('admin.dokter.tambah-dokter');
@@ -34,23 +40,19 @@ class DokterController extends Controller
         'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // 1️⃣ Insert user
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
-            'password' => $request->password, // <--- 2. PENTING: PASSWORD HARUS DI-HASH!
+            'password' => $request->password,
             'role' => 'dokter'
         ]);
 
-        // 2️⃣ Upload foto dan simpan nama filenya ke variabel $path
         $path = null; 
 
         if ($request->hasFile('foto')) {
-            // File akan disimpan di: storage/app/public/admin/dokter/
             $path = $request->file('foto')->store('dokter', 'public');
         }
 
-        // 3️⃣ Insert ke tabel dokter
         Dokter::create([
             'id_users' => $user->id,
             'nama_dokter' => $request->nama_dokter,
@@ -58,6 +60,53 @@ class DokterController extends Controller
             'foto' => $path 
         ]);
 
-        return redirect()->route('admin.dokter.index')->with('success', 'Dokter berhasil ditambahkan'); // Tambahkan with('success') agar ada notifikasi
+        return redirect()->route('admin.dokter.index')->with('success', 'Dokter berhasil ditambahkan');
+    }
+
+    public function edit($id)
+    {
+        $dokter = Dokter::findOrFail($id);
+        return view('admin.dokter.edit-dokter', compact('dokter'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $dokter = Dokter::findOrFail($id);
+
+        $request->validate([
+            'nama_dokter' => 'required|string',
+            'no_telp' => 'required|string|max:20',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if($request->hasFile('foto')) {
+            if($dokter->foto && \Storage::exists('public/' . $dokter->foto)) {
+                \Storage::delete('public/' . $dokter->foto);
+            }
+
+            $filename = $request->file('foto')->store('dokter', 'public');
+            $dokter->foto = $filename; 
+        }
+
+        $dokter->nama_dokter = $request->nama_dokter;
+        $dokter->no_telp = $request->no_telp;
+        $dokter->save();
+        return redirect()->route('admin.dokter.index');
+    }
+
+    public function destroy($id)
+    {
+        $dokter = Dokter::findOrFail($id);
+
+        if($dokter && $dokter->foto) {
+            if(\Storage::exists('public/' . $dokter->foto)) {
+                \Storage::delete('public/' . $dokter->foto);
+            }
+        }
+
+        $dokter->user->delete();
+        $dokter->delete();
+
+        return redirect()->route('admin.dokter.index');
     }
 }

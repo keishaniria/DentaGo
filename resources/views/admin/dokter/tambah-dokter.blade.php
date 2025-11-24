@@ -63,7 +63,6 @@
     </div>
 
     <div class="card-body p-4">
-        {{-- DISPLAY VALIDATION ERRORS HERE --}}
         @if ($errors->any())
             <div class="alert pastel-danger rounded-3 p-3 mb-4" role="alert">
                 <p class="fw-bold mb-2">Terjadi Kesalahan:</p>
@@ -78,7 +77,6 @@
         <form action="{{ route('admin.dokter.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            {{-- Input untuk tabel users --}}
             <div class="mb-3">
                 <label for="username" class="form-label pastel-label">Nama (Username)</label>
                 <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" required>
@@ -99,9 +97,6 @@
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
 
-
-            {{-- Input untuk tabel dokter --}}
-
             <div class="mb-3">
                 <label for="no_telp" class="form-label pastel-label">No. Telp</label>
                 <input type="text" name="no_telp" id="no_telp" class="form-control" value="{{ old('no_telp') }}" required>
@@ -110,10 +105,25 @@
             <div class="mb-4">
                 <label for="foto" class="form-label pastel-label">Foto</label>
                 <input type="file" name="foto" id="foto" class="form-control">
+
+                <img id="preview-image" 
+                    src="#" 
+                    alt="Preview Foto" 
+                    class="mt-3 rounded" 
+                    style="display:none; width:120px; height:120px; object-fit:cover; border:1px solid #ccc;">
             </div>
 
             <button type="submit" class="btn pastel-btn mt-3">Simpan Data Dokter</button>
         </form>
     </div>
 </div>
+<script>
+document.getElementById('foto').addEventListener('change', function(e) {
+    const preview = document.getElementById('preview-image');
+
+    preview.style.display = 'block';   // munculin gambar
+    preview.src = URL.createObjectURL(e.target.files[0]); // generate preview
+});
+</script>
+
 @endsection

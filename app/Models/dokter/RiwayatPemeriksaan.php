@@ -2,6 +2,7 @@
 
 namespace App\Models\dokter;
 
+use App\Models\admin\Dokter;
 use Illuminate\Database\Eloquent\Model;
 
 class RiwayatPemeriksaan extends Model
@@ -28,5 +29,9 @@ class RiwayatPemeriksaan extends Model
     public function pasien()
     {
         return $this->belongsTo(Pasien::class, 'id_pasien');
+    }
+    public function dokter()
+    {
+        return $this->belongsTo(Dokter::class, 'id_dokter');
     }
 }
