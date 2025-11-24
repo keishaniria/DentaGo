@@ -27,6 +27,17 @@
 	}
 </style>
 
+<style>
+	.table tbody tr:hover {
+		background-color: #f9fbfc;
+		transition: 0.2s ease;
+	}
+	.table th, .table td {
+		vertical-align: middle;
+		padding: 14px 16px;
+	}
+</style>
+
 <div class="container-fluid">
 	<h4 class="mb-1">
 		<i class="bi bi-clock-history icon-new-green me-2"></i>Riwayat Pemeriksaan
@@ -45,42 +56,28 @@
 				</thead>
 
 				<tbody class="table-group-divider">
-					<tr>
-						<td>12-11-2025</td>
-						<td>Sakit gigi kiri</td>
-						<td>Karies Sedang</td>
-						<td>Penambalan</td>
-						<td>
-							<button class="btn btn-outline-new btn-sm rounded-pill px-3" onclick="showDetail()">
-								<i class="bi bi-eye me-1"></i>Detail
-							</button>
-						</td>
-					</tr>
-					<tr>
-						<td>02-10-2025</td>
-						<td>Gusi berdarah</td>
-						<td>Gingivitis Ringin</td>
-						<td>Scaling</td>
-						<td>
-							<button class="btn btn-outline-new btn-sm rounded-pill px-3" onclick="showDetail()">
-								<i class="bi bi-eye me-1"></i>Detail
-							</button>
-						</td>
-					</tr>
+					@forelse($riwayat as $rw) 
+					   <tr>
+							<td>{{ \Carbon\Carbon::parse($rw->tanggal_pemeriksaan)->format('d-m-Y') }}</td>
+							<td>{{ $rw->keluhan }}</td>
+							<td>{{ $rw->diagnosa }}</td>
+							<td>{{ $rw->tindakan }}</td>
+							<td>
+								<a class="btn btn-outline-new btn-sm rounded-pill px-3" href="{{ route('pasien.riwayatpemeriksaan.detail', $rw->id)}}">
+									<i class="bi bi-eye me-1"></i>Detail
+								</a>
+							</td>
+						</tr>
+					@empty 
+					      <tr>
+						   <td colspan="5" class="text-center text-muted py-4">
+							    Tidak ada pemeriksaan yang dilakukan.
+						   </td>
+					   </tr>
+					@endforelse
 				</tbody>
 			</table>
 		</div>
 	</div>
 </div>
-
-<style>
-	.table tbody tr:hover {
-		background-color: #f9fbfc;
-		transition: 0.2s ease;
-	}
-	.table th, .table td {
-		vertical-align: middle;
-		padding: 14px 16px;
-	}
-</style>
 @endsection

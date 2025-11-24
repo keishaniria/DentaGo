@@ -61,13 +61,14 @@ class PemeriksaanController extends Controller
                 ->store('foto_gigi', 'public');
         }
 
+        $pemeriksaan->id_dokter = 1;
 
         $pemeriksaan->save();
 
         RiwayatPemeriksaan::create([
             'id_pemeriksaan'      => $pemeriksaan->id,
             'id_pasien'           => $pemeriksaan->id_pasien,
-            'id_dokter'           => $pemeriksaan->id_dokter,
+            'id_dokter'           => 1,
             'keluhan'             => $pemeriksaan->keluhan,
             'diagnosa'            => $pemeriksaan->diagnosa,
             'tindakan'            => $pemeriksaan->tindakan,

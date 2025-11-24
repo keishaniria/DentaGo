@@ -2,9 +2,11 @@
 
 namespace App\Models\dokter;
 
+use App\Models\admin\Dokter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
+use App\Models\Pasien\Pasien;
 
 class Pemeriksaan extends Model
 {
@@ -33,7 +35,7 @@ class Pemeriksaan extends Model
 
     public function dokter()
     {
-        return $this->belongsTo(User::class, 'id_dokter');
+        return $this->belongsTo(Dokter::class, 'id_dokter');
     }
 
     public function getJenisPemeriksaanAttribute()

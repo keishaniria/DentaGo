@@ -50,6 +50,13 @@
 
 
 <div class="container-fluid">
+	@if(session('success'))
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{ session('success') }}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	@endif
+
 	<h4 class="mb-1">
 		<i class="bi bi-calendar-check icon-jadwal me-2"></i>Jadwal Pemeriksaan Gigi
 	</h4>
@@ -63,7 +70,7 @@
 				<thead style="background-color: #f4f6f9; color: #243447; font-weight: 600;">
 					<tr>
 						<th>Nama</th>
-						<th>Tanggal Reservasi</th>
+						<th>Tanggal Pemeriksaan</th>
 						<th>Jam</th>
 						<th>Status</th>
 						<th>Aksi</th>
@@ -71,7 +78,7 @@
 				</thead>
 
 				<tbody class="table-group-divider">
-					@foreach($reservasi as $r)
+					@forelse($reservasi as $r)
 					<tr>
 						<td>{{ $r->pasien->nama_pasien }}</td>
 
@@ -95,9 +102,14 @@
 								<i class="bi bi-eye me-1"></i>Detail
 							</a>
 						</td>
-
 					</tr>
-					@endforeach
+					@empty
+					   <tr>
+						   <td colspan="5" class="text-center text-muted py-4">
+							    Tidak ada reservasi yang dilakukan.
+						   </td>
+					   </tr>
+					@endforelse
 				</tbody>
 
 			</table>

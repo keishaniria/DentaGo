@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pasien');
             $table->unsignedBigInteger('id_dokter')->nullable();
+            $table->unsignedBigInteger('id_reservasi')->nullable();
             $table->date('tanggal');
             $table->time('jam');
             $table->string('jenis_pemeriksaan')->nullable();

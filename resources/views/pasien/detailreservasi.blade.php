@@ -59,7 +59,7 @@
 			</div>
 
 			<div class="mb-3">
-				<label class="fw-semibold text-secondary">Tanggal Reservasi</label>
+				<label class="fw-semibold text-secondary">Tanggal Pemeriksaan</label>
 			    <p class="text-dark mb-2">{{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->format('d-m-Y') }}</p>
 			</div>
 

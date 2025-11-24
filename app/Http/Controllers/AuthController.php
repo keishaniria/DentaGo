@@ -13,10 +13,17 @@ class AuthController extends Controller
     }
 
     public function submitSignup(Request $request){
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+        ]);
+
         $user = new User();
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = $request->password;
+        $user->role = 'pasien';
         $user->save();
 
         return redirect()->route('login.show')->with('success', 'Registrasi berhasil! Silakan login.');
@@ -27,35 +34,31 @@ class AuthController extends Controller
         return view('sign-in');
     }
     public function submitSignin(Request $request){
-        $email = $request->input('email');
-        $password = $request->input('password');
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return back()->withErrors([
-                'email' => 'Email tidak ditemukan',
-            ]);
+            return back()->withErrors(['email' => 'Email tidak ditemukan']);
         }
 
-        if ($user->password !== $password) {
-            return back()->withErrors([
-                'password' => 'Password salah',
-            ]);
+        if ($user->password !== $request->password) {
+            return back()->withErrors(['password' => 'Password salah']);
         }
 
         // login manual
         Auth::login($user);
 
         // redirect sesuai role
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.layout.dashboard');
-        } elseif ($user->role === 'dokter') {
-            return redirect()->route('dokter.dashboard');
-        } elseif ($user->role === 'pasien') {
-            return redirect()->route('pasien.dashboard');
-        }
-        return redirect()->route('dashboard');
+        return match ($user->role) {
+            'admin'  => redirect()->route('admin.dashboard'),
+            'dokter' => redirect()->route('dokter.dashboard'),
+            'pasien' => redirect()->route('pasien.dashboard'),
+            default  => redirect()->route('dashboard'),
+        };
     }
 
     public function logout(Request $request) {

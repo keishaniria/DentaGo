@@ -90,7 +90,7 @@
                         <button class="btn btn-lg w-100 fs-6" style="background-color:#bce0d1;">Daftar</button>
                     </div>
                     <div class="input-group mb-3">
-                        <small>Sudah punya akun? <a href="">Masuk</a> di sini ya!</small>
+                        <small>Sudah punya akun? <a href="/sign-in">Masuk</a> di sini ya!</small>
                     </div>
                 </form>
             </div>

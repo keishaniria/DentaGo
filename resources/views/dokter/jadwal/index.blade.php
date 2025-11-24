@@ -99,15 +99,14 @@
                     <td>{{ $j->tanggal }}</td>
                     <td>{{ $j->jam}}</td>
 
-                    <td>
-                        @if ($j->status == 'Menunggu')
-                            <span class="badge badge-menunggu">Menunggu</span>
-                        @elseif ($j->status == 'Proses')
-                            <span class="badge badge-proses">Proses</span>
-                        @elseif ($j->status == 'Selesai')
-                            <span class="badge badge-selesai">Selesai</span>
-                        @elseif ($j->status == 'Batal')
-                            <span class="badge badge-batal">Batal</span>
+                    <td class="text-center">
+                        @if ($j->status !== 'Selesai')
+                        <form action="{{ route('dokter.jadwal.updateStatus', $j->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="Selesai">
+                            <button class="btn btn-sm badge-selesai">Selesai</button>
+                        </form>
                         @endif
                     </td>
 

@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Pasien;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\pasien\pasien;
-use App\Models\pasien\reservasi;
+use App\Models\pasien\Reservasi;
 
 class JadwalpemeriksaanController extends Controller
 {
    public function index() {
+
       $user = auth()->user();
       $pasien = $user->pasien;
 

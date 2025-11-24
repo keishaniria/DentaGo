@@ -1,6 +1,6 @@
-@extends('pasien.layouts.main')
+@extends('admin.layout.dashboard')
 
-@section('title', 'Profile Saya')
+@section('title', 'Detail Dokter')
 
 @section('content')
 
@@ -84,23 +84,18 @@
 			</div>
 		@endif
 
-		<h4 class="mb-3">Profil Saya</h4>
+		<h4 class="mb-3">Detail dokter</h4>
 
 		<div class="card shadow-sm border-0 rounded-0 overflow-hidden">
 			<div style="background: #f4f6f9; padding: 14px 22px; display: flex; justify-content: space-between; align-items: center;">
-				<h6 class="fw-bold mb-0 text-primary">Informasi Akun</h6>
+				<h6 class="fw-bold mb-0 text-primary">Informasi Drg. {{ $dokter->nama_dokter }}</h6>
                 
-				<div class="profile-name">
-					<a class="btn btn-primary btn-sm rounded-pill px-3 d-flex align-items-center gap-1" href="{{ route('pasien.editprofil') }}">
-						<i class="bi bi-pencil-square"></i>Edit Profil
-					</a>
-				</div>
 			</div>
 
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-4 text-center">
-						<img src="{{ $pasien->foto_pasien ? asset('storage/' . $pasien->foto_pasien) : 'https://via.placeholder.com/170'}}" 
+						<img src="{{ $dokter->foto ? asset('storage/' . $dokter->foto) : 'https://via.placeholder.com/170'}}" 
                              class="rounded-4 shadow-sm mb-3" 
                              style="width: 170px; height: 170px; object-fit: cover;" 
                              alt="Foto Profil">
@@ -110,75 +105,39 @@
 
 						<div class="mb-3">
 							<label class="text-secondary small fw-semibold">Nama</label>
-							<div class="fw-medium fs-6 text-dark">{{ $pasien->nama_pasien }}</div>
+							<div class="fw-medium fs-6 text-dark">{{ $dokter->user->username }}</div>
 						</div>
 
 						<div class="mb-3">
-							<label class="text-secondary small fw-semibold">Tanggal Lahir</label>
-							<div class="fw-medium fs-6 text-dark">{{ $pasien->tanggal_lahir ?? '-'}}</div>
-						</div>
-
-						<div class="mb-3">
-							<label class="text-secondary small fw-semibold">Jenis Kelamin</label>
-							<div class="fw-medium fs-6 text-dark">{{ $pasien->jenis_kelamin ?? '-'}}</div>
-						</div>
-
-						<div class="mb-3">
-							<label class="text-secondary small fw-semibold">Alamat</label>
-							<div class="fw-medium fs-6 text-dark">{{ $pasien->alamat ?? '-'}}</div>
+							<label class="text-secondary small fw-semibold">Nama lengkap</label>
+							<div class="fw-medium fs-6 text-dark">{{ $dokter->nama_dokter }}</div>
 						</div>
 
                         <div class="mb-3">
 							<label class="text-secondary small fw-semibold">Email</label>
-							<div class="fw-medium fs-6 text-dark">{{ $user->email }}</div>
+							<div class="fw-medium fs-6 text-dark">{{ $dokter->user->email }}</div>
 						</div>
 
 						<div class="mb-3">
 							<label class="text-secondary small fw-semibold">Nomor Telepon</label>
-							<div class="fw-medium fs-6 text-dark">{{ $pasien->no_telepon ?? '-'}}</div>
+							<div class="fw-medium fs-6 text-dark">{{ $dokter->no_telp ?? '-'}}</div>
 						</div>
+
+						<div class="mb-3">
+							<label class="text-secondary small fw-semibold">Dibuat pada</label>
+							<div class="fw-medium fs-6 text-dark">{{ $dokter->created_at}}</div>
+						</div>
+
+                        <div class="d-flex justify-content-between mt-4">
+						<a class="btn btn-outline-secondary rounded-pill px-4" href="{{ route('admin.dokter.index') }}">
+							<i class="bi bi-arrow-left me-1"></i>Kembali
+                        </a>
+					</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<hr class="my-4">
-
-	<div class="text-center mt-4">
-		<button class="btn btn-danger rounded-pill px-4 py-2" data-bs-toggle="modal" data-bs-target="#modalHapusAkun">
-			<span class="fw-semibold">Hapus Akun</span>
-		</button>
-	</div>
-</div>
-
-<div class="modal fade" id="modalHapusAkun" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title text-danger fw-bold">Hapus Akun</h5>
-      </div>
-
-      <div class="modal-body">
-        <p class="mb-0">
-          Yakin ingin menghapus akun? Semua data mu termasuk riwayat reservasi dan pemeriksaan akan ikut terhapus.
-        </p>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-
-        <form action="{{ route('pasien.hapusakun') }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger fw-semibold">
-                Hapus 
-            </button>
-        </form>
-      </div>
-
-    </div>
-  </div>
 </div>
 @endsection
