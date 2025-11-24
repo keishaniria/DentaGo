@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal'])->default('Menunggu');
             $table->timestamps();
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
-            $table->foreign('id_dokter')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_dokter')->references('id')->on('dokters')->onDelete('cascade');
         });
     }
 

@@ -146,7 +146,7 @@
                         @if ($status === 'selesai')
                         <form action="{{ route('dokter.jadwal.destroy', $j->id) }}"
                             method="POST"
-                            onsubmit="return confirm('Yakin ingin hapus?')" style="display:inline-block;">
+                            onsubmit="return confirm('Yakin ingin hapus jadwal pemeriksaan ini?')" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-sm btn-danger-soft">

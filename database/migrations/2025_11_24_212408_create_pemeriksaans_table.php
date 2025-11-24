@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservasi', function (Blueprint $table) {
+       Schema::create('pemeriksaans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pasien');
             $table->unsignedBigInteger('id_dokter')->nullable();
-            $table->date('tanggal_reservasi');
-            $table->time('jam');
-            $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal'])->default('Menunggu');
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->text('keluhan')->nullable();
+            $table->text('diagnosa')->nullable();
+            $table->text('tindakan')->nullable();
+            $table->text('resep')->nullable();
+            $table->date('tanggal_pemeriksaan')->nullable();
+            $table->string('foto_kondisi_gigi')->nullable();
+            $table->timestamps();
 
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
             $table->foreign('id_dokter')->references('id')->on('dokters')->onDelete('cascade');
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservasi');
+        Schema::dropIfExists('pemeriksaans');
     }
 };

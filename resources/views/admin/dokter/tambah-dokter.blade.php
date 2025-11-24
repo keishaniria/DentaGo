@@ -2,7 +2,7 @@
 
 @section('title', 'Data dokter')
 
-@section('content')
+@section('content-admin')
 
 <style>
     .pastel-card {

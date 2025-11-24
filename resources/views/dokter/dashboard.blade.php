@@ -97,10 +97,10 @@
 <div class="stat-container">
 
     <div class="stat-card card-green">
-        <i class="bi bi-people-fill stat-icon"></i>
+      <i class="bi bi-emoji-laughing-fill stat-icon"></i>
         <div class="stat-info">
-            <h3>{{ $data['pasien_hari_ini'] }}</h3>
-            <p>Pasien Hari Ini</p>
+            <h3>{{ $data['pemeriksaan_hari_ini'] }}</h3>
+            <p>Pemeriksaan Hari Ini</p>
         </div>
     </div>
 

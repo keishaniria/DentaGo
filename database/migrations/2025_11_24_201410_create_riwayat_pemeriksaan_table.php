@@ -11,20 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('pemeriksaans', function (Blueprint $table) {
+       Schema::create('riwayat_pemeriksaan', function (Blueprint $table) {
             $table->id();
+
+            // relasi ke pemeriksaan
+            $table->unsignedBigInteger('id_pemeriksaan')->nullable();
+
+            // relasi ke pasien
             $table->unsignedBigInteger('id_pasien');
-            $table->unsignedBigInteger('id_dokter')->nullable();
+
             $table->text('keluhan')->nullable();
             $table->text('diagnosa')->nullable();
             $table->text('tindakan')->nullable();
-            $table->text('resep')->nullable();
+            $table->json('resep')->nullable();
             $table->date('tanggal_pemeriksaan')->nullable();
             $table->string('foto_kondisi_gigi')->nullable();
+
             $table->timestamps();
 
+            // foreign key
+            $table->foreign('id_pemeriksaan')->references('id')->on('pemeriksaans')->onDelete('cascade');
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
-            $table->foreign('id_dokter')->references('id')->on('users')->onDelete('cascade');
+        
         });
     }
 
@@ -33,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemeriksaans');
+        Schema::dropIfExists('riwayat_pemeriksaan');
     }
 };
