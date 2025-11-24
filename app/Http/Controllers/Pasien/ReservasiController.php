@@ -12,7 +12,7 @@ use App\Models\Dokter\DokterJadwalPraktek;
 
 class ReservasiController extends Controller
 {
-   public function index()
+    public function index()
     {
         $user = auth()->user();
         $pasien = $user->pasien;
@@ -41,34 +41,27 @@ class ReservasiController extends Controller
     {
         $request->validate([
             'tanggal_reservasi' => 'required|date',
-            'jam' => 'required',
-            'status' => 'nullable|string|in:menunggu,proses,selesai,batal'
+            'jam' => 'required|date_format:H:i',
+            'id_dokter' => 'required|exists:dokters,id',
         ]);
 
         $user = auth()->user();
         $pasien = $user->pasien;
 
         if (!$pasien->alamat || !$pasien->no_telepon) {
-            return redirect()->route('pasien.reservasi') 
-                     ->with('error', 'Silahkan lengkapi profil terlebih dahulu sebelum melakukan reservasi.');
+            return redirect()->route('pasien.reservasi')
+                ->with('error', 'Silahkan lengkapi profil terlebih dahulu sebelum melakukan reservasi.');
         }
-        
-        $request->validate([
-            'tanggal_reservasi' => 'required|date', 
-            'jam' => 'required|date_format:H:i|after_or_equal:07:00|before_or_equal:16:00',
-            'status' => 'nullable|string|in:menunggu,proses,selesai,batal'
-        ]);
-        
-        
+
         Reservasi::create([
             'id_pasien' => $pasien->id,
-            'id_dokter' => 1,
+            'id_dokter' => $request->id_dokter,
             'tanggal_reservasi' => $request->tanggal_reservasi,
             'jam' => $request->jam,
             'status' => 'Menunggu'
         ]);
 
-       return redirect()->route('pasien.jadwalpemeriksaan')->with('success', 'Reservasi berhasil!');
+        return redirect()->route('pasien.jadwalpemeriksaan')->with('success', 'Reservasi berhasil!');
     }
 
     public function mulai($id)
@@ -117,7 +110,7 @@ class ReservasiController extends Controller
     public function batal($id)
     {
         $r = Reservasi::findOrFail($id);
-        
+
         if (auth()->user()->role !== 'admin') {
             abort(403, 'Anda tidak memiliki akses.');
         }
