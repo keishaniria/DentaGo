@@ -5,7 +5,7 @@
 @section('content-admin')
 
 <h2 class="fw-bold mb-3">
-    <i class="bi bi-person-fill"></i> Data Dokter
+    <i class="bi bi-person-fill"></i> Data Pasien
 </h2>
 
 
@@ -69,7 +69,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($riwayat as $r)
+                @foreach ($reservasi as $r)
                 <tr class="text-center">
                     <td>{{ $r->id }}</td>
                     <td>{{ $r->pasien->nama_pasien }}</td>

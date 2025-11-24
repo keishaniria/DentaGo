@@ -21,10 +21,10 @@ use App\Http\Controllers\Pasien\RiwayatpemeriksaanController;
 use App\Http\Controllers\Pasien\ProfilController;
 use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
+// Route::get('/', function () {
 
-   return view('sign-in');
-});
+//    return view('sign-in');
+// });
 
 Route::get('/sign-up', [AuthController::class, 'showSignup'])->name('signup.show');
 Route::post('/sign-up/submit', [AuthController::class, 'submitSignup'])->name('signup.submit');
@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])
         ->name('admin.dashboard');
 
-   Route::patch('/reservasi/{id}/status', [ReservasiController::class, 'updateStatus'])
+   Route::put('/reservasi/{id}/status', [ReservasiController::class, 'updateStatus'])
         ->name('admin.reservasi.updateStatus');
    
    Route::get('/riwayat-pemeriksaan', [RiwayatController::class, 'index'])
