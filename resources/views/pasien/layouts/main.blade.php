@@ -187,7 +187,10 @@
 </head>
 <body>
 	<div class="sidebar">
-		<div class="brand">DentaGo</div>
+		<div class="brand d-flex align-items-center justify-content-center gap-2">
+            <img src="{{ asset('images/logo.png') }}" width="28" alt="Logo">
+            <span>DentaGo</span>
+        </div>
 		<ul class="nav">
 			<a href="{{ route('pasien.dashboard') }}" class="{{ request()->routeIs('pasien.dashboard') ? 'active' : '' }}"><i class="bi bi-house-door"></i>Dashboard</a>
 		    <a href="{{ route('pasien.reservasi') }}" class="{{ request()->routeIs('pasien.reservasi') ? 'active' : '' }}"><i class="bi bi-clipboard-plus"></i>Buat Reservasi</a>

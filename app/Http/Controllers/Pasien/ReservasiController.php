@@ -12,10 +12,15 @@ use App\Models\Dokter\DokterJadwalPraktek;
 
 class ReservasiController extends Controller
 {
-    public function index()
+   public function index()
     {
         $user = auth()->user();
         $pasien = $user->pasien;
+
+        if (!$pasien) {
+            return redirect()->route('pasien.profilesaya')
+                ->with('error', 'Silakan lengkapi data pasien terlebih dahulu.');
+        }
 
         $jadwalDokter = DokterJadwalPraktek::orderBy('tanggal', 'asc')
             ->orderBy('jam_mulai', 'asc')
