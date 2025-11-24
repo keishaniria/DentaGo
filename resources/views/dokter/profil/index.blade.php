@@ -66,7 +66,11 @@
 
                 <div class="row">
                     <div class="col-md-4 text-center">
-                        <img src="https://via.placeholder.com/170" class="dokter-photo" alt="Foto Dokter">
+                        <img
+                            src="{{ $user->foto_dokter ? asset('images/' . $user->foto_dokter) : asset('images/foto_dokter.jpg') }}"
+                            class="dokter-photo"
+                            alt="Foto Dokter">
+
                     </div>
 
                     <div class="col-md-8">

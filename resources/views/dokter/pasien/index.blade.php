@@ -49,7 +49,7 @@
                     <th>Foto</th>
                     <th>Nama Pasien</th>
                     <th>Jenis Kelamin</th>
-                    {{-- <th>Tanggal Lahir</th> --}}
+                    <th>Tanggal Lahir</th> 
                     <th>No. Telepon</th>
                     <th>Alamat</th>
                     <th>Aksi</th>
@@ -66,9 +66,7 @@
                     </td>
                     <td>{{ $p->nama_pasien }}</td>
                     <td>{{ $p->jenis_kelamin }}</td>
-                    <td>
-                        {{ $p->tanggal_lahir ? \Carbon\Carbon::parse($p->tanggal_lahir)->format('Y-m-d') : '-' }}
-                    </td>
+                    <td>{{ $p->tanggal_lahir ? \Carbon\Carbon::parse($p->tanggal_lahir)->format('Y-m-d') : '-' }}</td>
                     <td>{{ $p->no_telepon }}</td>
                     <td>{{ $p->alamat }}</td>
                     <td>

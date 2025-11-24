@@ -110,7 +110,7 @@ document.querySelectorAll('.btn-cancel').forEach(btn => {
     btn.addEventListener('click', function(e){
         e.preventDefault();
 
-        let url = this.getAttribute('href'); // ⬅ ambil URL asli dari route
+        let url = this.getAttribute('href');
 
         Swal.fire({
             title: "Batalkan reservasi?",

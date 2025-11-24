@@ -4,38 +4,38 @@
 
 @section('content')
 <style>
-    body{
+    body {
         font-family: 'Poppins', sans-serif;
         background-color: #F4F6F9;
         margin: 0;
     }
 
-    .box-area{
+    .box-area {
         width: 930px;
         margin: auto;
     }
 
-    .right-box{
+    .right-box {
         padding: 40px 30px 40px;
     }
 
-    ::placeholder{
+    ::placeholder {
         font-size: 16px;
     }
 
-    @media only screen and (max-width: 768px){
-        .box-area{
+    @media only screen and (max-width: 768px) {
+        .box-area {
             margin: 0 10px;
 
         }
 
-        .left-box{
+        .left-box {
             /* width: auto; */
             height: 150px;
             overflow: hidden;
         }
 
-        .right-box{
+        .right-box {
             padding: 20px;
         }
     }
@@ -58,6 +58,23 @@
                     <h2>Halo!</h2>
                     <p>Segera daftarkan dirimu agar reservasi menjadi mudah.</p>
                 </div>
+
+                @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <form action="{{ route('signup.submit') }}" method="POST">
                     @csrf
                     <div class="input-group mb-4">
@@ -78,7 +95,7 @@
                 </form>
             </div>
         </div>
-    
+
     </div>
 
 </div>

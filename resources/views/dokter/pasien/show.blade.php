@@ -178,7 +178,7 @@
                             </td>
 
                             <td class="text-center">
-                                <a href="{{ route('dokter.pemeriksaan.edit', $pemeriksaan->id) }}" class="btn btn-sm btn-detail-pastel">
+                                <a href="{{ route('dokter.pemeriksaan.edit', $pemeriksaan->id_pemeriksaan) }}" class="btn btn-sm btn-detail-pastel">
                                     Edit
                                 </a>
                             </td>

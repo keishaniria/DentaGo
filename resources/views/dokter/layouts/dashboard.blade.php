@@ -144,7 +144,7 @@
         </div>
 
         <ul class="nav">
-            <li><a href="{{ route('dokter.dashboard') }}" class="{{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="{{ route('dokter.dashboard') }}" class="{{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}"><i class="bi bi-house-door"></i> Dashboard</a></li>
             <li><a href="{{ route('dokter.jadwal.index') }}" class="{{ request()->routeIs('dokter.jadwal.*') ? 'active' : '' }}"><i class="bi bi-calendar-check"></i> Jadwal Pemeriksaan</a></li>
             <li><a href="{{ route('dokter.pasien.index') }}" class="{{ request()->routeIs('dokter.pasien.*') ? 'active' : '' }}"><i class="bi bi-person-lines-fill"></i> Data Pasien</a></li>
             <li><a href="{{ route('dokter.laporan.index') }}" class="{{ request()->routeIs('dokter.laporan.*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> Laporan</a></li>
@@ -163,10 +163,16 @@
 
     <nav class="top-navbar">
         <div class="dropdown profile">
-            <img src="{{ Auth::user()->dokter && Auth::user()->dokter->foto_dokter
-                ? asset('storage/' . Auth::user()->dokter->foto_dokter)
-                : 'https://cdn-icons-png.flaticon.com/512/847/847969.png'
-            }}">
+            @php
+            $user = Auth::user();
+            @endphp
+
+            <img
+                src="{{ $user->foto_dokter ? asset('images/' . $user->foto_dokter) : asset('images/foto_dokter.jpg') }}"
+                alt="Foto Dokter"
+                class="rounded-circle"
+                style="width: 40px; height: 40px; object-fit: cover;">
+
             @php
             use Illuminate\Support\Facades\Auth;
             @endphp

@@ -19,6 +19,7 @@ class JadwalPemeriksaanController extends Controller
         return view('dokter.jadwal.index', compact('jadwal'));
     }
 
+
     public function updateStatus(Request $request, $id)
     {
         $jadwal = Jadwal::findOrFail($id);
@@ -32,7 +33,7 @@ class JadwalPemeriksaanController extends Controller
             $reservasi = Reservasi::find($jadwal->id_reservasi);
             if ($reservasi) {
                 $reservasi->status = $request->status;
-                $reservasi->save(); // ← ini MEMICU event updated() → jadwal ikut update otomatis
+                $reservasi->save();
             }
         }
 
@@ -43,7 +44,7 @@ class JadwalPemeriksaanController extends Controller
     {
         $jadwal = Jadwal::findOrFail($id);
 
-        if ($jadwal->status !== 'Selesai') {
+        if (strtolower($jadwal->status) !== 'selesai') {
             return redirect()->back();
         }
 
