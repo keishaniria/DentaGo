@@ -12,13 +12,16 @@
 </div>
 
 <style>
-    .btn-tambah, .btn-simpan {
+    .btn-tambah,
+    .btn-simpan {
         background-color: #bce0d1 !important;
         color: #2c3e50 !important;
         border: none !important;
         font-weight: 600;
     }
-    .btn-tambah:hover, .btn-simpan:hover {
+
+    .btn-tambah:hover,
+    .btn-simpan:hover {
         background-color: #abd7c4 !important;
     }
 
@@ -45,6 +48,20 @@
     .badge-selesai {
         background-color: #9ad7b3 !important;
         color: #0d3b29 !important;
+    }
+
+    .btn-status-selesai {
+        background-color: #9ad7b3 !important;
+        color: #0d3b29 !important;
+        border: none !important;
+        padding: 5px 10px !important;
+        font-size: 13px !important;
+        border-radius: 6px !important;
+        font-weight: 600 !important;
+    }
+
+    .btn-status-selesai:hover {
+        background-color: #86c9a1 !important;
     }
 
     .badge-batal {
@@ -100,27 +117,45 @@
                     <td>{{ $j->jam}}</td>
 
                     <td class="text-center">
-                        @if ($j->status !== 'Selesai')
-                        <form action="{{ route('dokter.jadwal.updateStatus', $j->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="status" value="Selesai">
-                            <button class="btn btn-sm badge-selesai">Selesai</button>
-                        </form>
+                        @php $status = strtolower($j->status); @endphp
+
+                        @if ($status === 'menunggu')
+                        <span class="badge badge-menunggu">Menunggu</span>
+                        @elseif ($status === 'selesai')
+                        <span class="badge badge-selesai">Selesai</span>
+                        @elseif ($status === 'batal')
+                        <span class="badge badge-batal">Batal</span>
                         @endif
                     </td>
 
                     <td class="text-center">
-                        @if ($j->status === 'Selesai')
-                        <form action="{{ route('dokter.jadwal.destroy', $j->id) }}" 
-                              method="POST" 
-                              onsubmit="return confirm('Yakin ingin hapus?')">
+                        @php $status = strtolower($j->status); @endphp
+
+                        @if ($status !== 'selesai')
+                        <form action="{{ route('dokter.jadwal.updateStatus', $j->id) }}"
+                            method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="selesai">
+                            <button class="btn btn-sm btn-status-selesai">
+                                <i></i> Ubah status selesai
+                            </button>
+                        </form>
+                        @endif
+
+                        @if ($status === 'selesai')
+                        <form action="{{ route('dokter.jadwal.destroy', $j->id) }}"
+                            method="POST"
+                            onsubmit="return confirm('Yakin ingin hapus?')" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger-soft">Hapus</button>
+                            <button class="btn btn-sm btn-danger-soft">
+                                <i></i> Hapus
+                            </button>
                         </form>
                         @endif
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>

@@ -75,7 +75,7 @@ Route::prefix('admin')->group(function () {
 Route::prefix('dokter')->group(function () {
    Route::get('/dashboard', [DokterDashboardController::class, 'index'])->name('dokter.dashboard');
    Route::get('/jadwal', [JadwalPemeriksaanDokterController::class, 'index'])->name('dokter.jadwal.index');
-   Route::put('/dokter/jadwal/{id}/status', [DokterJadwalController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
+   Route::put('/jadwal/{id}/status', [DokterJadwalController::class, 'updateStatus'])->name('dokter.jadwal.updateStatus');
    Route::delete('/jadwal/{id}', [JadwalPemeriksaanDokterController::class, 'destroy'])->name('dokter.jadwal.destroy');
    Route::post('/store', [JamPraktekController::class, 'store'])->name('dokter.jadwal.store');
 
