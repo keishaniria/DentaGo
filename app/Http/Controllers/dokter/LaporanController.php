@@ -13,24 +13,16 @@ class LaporanController extends Controller
     public function index()
     {
         $pemeriksaans = Pemeriksaan::with(['pasien', 'dokter'])
-            ->orderBy('tanggal_pemeriksaan', 'desc')
+            ->orderBy('id', 'asc')
             ->get();
 
         return view('dokter.laporan.index', compact('pemeriksaans'));
     }
 
-    public function show($id)
-    {
-        $pemeriksaan = Pemeriksaan::with(['pasien', 'dokter'])
-            ->findOrFail($id);
-
-        return view('dokter.laporan.show', compact('pemeriksaan'));
-    }
-
     public function exportExcel()
     {
         $pemeriksaans = Pemeriksaan::with(['pasien', 'dokter'])
-            ->orderBy('tanggal_pemeriksaan', 'desc')
+            ->orderBy('id', 'asc')
             ->get();
 
         $spreadsheet = new Spreadsheet();

@@ -76,7 +76,7 @@
                     <p class="mb-1 text-muted small">
                         <i class="bi bi-gender-ambiguous me-1"></i> {{ $pasien->jenis_kelamin }}
                         <span class="mx-2">|</span>
-                        <i class="bi bi-calendar-date me-1"></i> {{ $pasien->tanggal_lahir->format('Y-m-d') }}
+                        <i class="bi bi-calendar-date me-1"></i> {{ $pasien->tanggal_lahir ? \Carbon\Carbon::parse($pasien->tanggal_lahir)->format('Y-m-d') : '-' }}
                     </p>
 
                     <p class="mb-1 text-muted small">
@@ -178,7 +178,7 @@
                             </td>
 
                             <td class="text-center">
-                                <a href="{{ route('dokter.pemeriksaan.edit', $pemeriksaan->id) }}" class="btn btn-sm btn-detail-pastel">
+                                <a href="{{ route('dokter.pemeriksaan.edit', $pemeriksaan->id_pemeriksaan) }}" class="btn btn-sm btn-detail-pastel">
                                     Edit
                                 </a>
                             </td>

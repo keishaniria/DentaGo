@@ -39,14 +39,14 @@
         gap: 20px;
         border-radius: 22px;
         padding: 24px 22px;
-        box-shadow: 0 6px 14px rgba(0,0,0,0.10);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);
         transition: 0.2s ease;
         height: 140px;
     }
 
     .stat-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 20px rgba(0,0,0,0.14);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.14);
     }
 
     .stat-icon {
@@ -68,26 +68,32 @@
         color: #264b3d;
     }
 
-    .card-green { background-color: #CDEDE3; }
-    .card-pink  { background-color: #F7DDE2; }
-    .card-blue  { background-color: #D9EAFB; }
+    .card-green {
+        background-color: #CDEDE3;
+    }
 
+    .card-pink {
+        background-color: #F7DDE2;
+    }
 
+    .card-blue {
+        background-color: #D9EAFB;
+    }
 </style>
 
+<h2 class="fw-bold mb-3">
+    <i class="bi bi-clipboard2-pulse me-2"></i> Dashboard Dokter
+</h2>
+
 <div class="greeting">
-    Halo, <span>{{ auth()->user()->username }}</span> 
+    Halo, <span>{{ auth()->user()->username }}</span>
 </div>
 
 <p class="sub-greeting">
     Semoga harimu menyenangkan dalam merawat senyum para pasien. Yuk lihat apa saja yang perlu kamu periksa hari ini!
 </p>
 
-<h2 class="fw-bold mb-3">
-    <i class="bi bi-clipboard2-pulse me-2"></i> Dashboard Dokter
-</h2>
 
-{{-- STAT CARDS --}}
 <div class="stat-container">
 
     <div class="stat-card card-green">

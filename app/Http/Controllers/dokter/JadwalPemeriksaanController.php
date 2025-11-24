@@ -18,15 +18,6 @@ class JadwalPemeriksaanController extends Controller
         return view('dokter.jadwal.index', compact('jadwal'));
     }
 
-    public function updateStatus(Request $request, $id)
-    {
-        $jadwal = Jadwal::findOrFail($id);
-        $jadwal->status = $request->status;
-        $jadwal->save();
-
-        return redirect()->back()->with('success', 'Status jadwal berhasil diperbarui!');
-    }
-
     public function destroy($id)
     {
         $jadwal = Jadwal::findOrFail($id);
