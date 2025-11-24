@@ -11,7 +11,7 @@ use App\Models\Dokter\DokterJadwalPraktek;
 
 class ReservasiController extends Controller
 {
-   public function index()
+    public function index()
     {
         $user = auth()->user();
         $pasien = $user->pasien;
@@ -40,16 +40,16 @@ class ReservasiController extends Controller
     {
         $request->validate([
             'tanggal_reservasi' => 'required|date',
-            'jam' => 'required',
-            'status' => 'nullable|string|in:menunggu,proses,selesai,batal'
+            'jam' => 'required|date_format:H:i',
+            'id_dokter' => 'required|exists:dokters,id',
         ]);
 
         $user = auth()->user();
         $pasien = $user->pasien;
 
         if (!$pasien->alamat || !$pasien->no_telepon) {
-            return redirect()->route('pasien.reservasi') 
-                     ->with('error', 'Silahkan lengkapi profil terlebih dahulu sebelum melakukan reservasi.');
+            return redirect()->route('pasien.reservasi')
+                ->with('error', 'Silahkan lengkapi profil terlebih dahulu sebelum melakukan reservasi.');
         }
         
         $request->validate([
@@ -60,12 +60,69 @@ class ReservasiController extends Controller
 
         Reservasi::create([
             'id_pasien' => $pasien->id,
-            'id_dokter' => 1,
+            'id_dokter' => $request->id_dokter,
             'tanggal_reservasi' => $request->tanggal_reservasi,
             'jam' => $request->jam,
             'status' => 'menunggu'
         ]);
 
-       return redirect()->route('pasien.jadwalpemeriksaan')->with('success', 'Reservasi berhasil!');
+        return redirect()->route('pasien.jadwalpemeriksaan')->with('success', 'Reservasi berhasil!');
+    }
+
+    public function mulai($id)
+    {
+        $r = Reservasi::findOrFail($id);
+        $r->status = 'Proses';
+        $r->save();
+
+        Jadwal::updateOrCreate(
+            ['id_reservasi' => $r->id],
+            [
+                'id_pasien' => $r->id_pasien,
+                'id_dokter' => $r->id_dokter,
+                'tanggal' => $r->tanggal_reservasi,
+                'jam' => $r->jam,
+                'jenis_pemeriksaan' => null,
+                'status' => 'Proses',
+            ]
+        );
+
+        return back()->with('success', 'Pemeriksaan telah dimulai');
+    }
+
+
+    public function selesai($id)
+    {
+        $r = Reservasi::findOrFail($id);
+        $r->status = 'Proses';
+        $r->save();
+
+        Jadwal::updateOrCreate(
+            ['id_reservasi' => $r->id],
+            [
+                'id_pasien' => $r->id_pasien,
+                'id_dokter' => $r->id_dokter,
+                'tanggal' => $r->tanggal_reservasi,
+                'jam' => $r->jam,
+                'jenis_pemeriksaan' => null,
+                'status' => 'Proses',
+            ]
+        );
+
+        return back()->with('success', 'Pemeriksaan telah dimulai');
+    }
+
+    public function batal($id)
+    {
+        $r = Reservasi::findOrFail($id);
+
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Anda tidak memiliki akses.');
+        }
+
+        $r->status = 'Batal';
+        $r->save();
+
+        return back()->with('success', 'Reservasi dibatalkan');
     }
 }
