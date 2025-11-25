@@ -21,10 +21,10 @@ use App\Http\Controllers\Pasien\RiwayatpemeriksaanController;
 use App\Http\Controllers\Pasien\ProfilController;
 use App\Http\Controllers\AuthController;
 
-// Route::get('/', function () {
+Route::get('/', function () {
 
-//    return view('sign-in');
-// });
+   return view('sign-in');
+});
 
 Route::get('/sign-up', [AuthController::class, 'showSignup'])->name('signup.show');
 Route::post('/sign-up/submit', [AuthController::class, 'submitSignup'])->name('signup.submit');
@@ -106,7 +106,7 @@ Route::prefix('pasien')->group(function () {
       ->name('pasien.reservasi.store');
    Route::get('/jadwalpemeriksaan', [PasienJadwalController::class, 'index'])
       ->name('pasien.jadwalpemeriksaan');
-   Route::get('/jadwalpemeriksaan{id}', [PasienJadwalController::class, 'show'])
+   Route::get('/jadwalpemeriksaan/{id}', [PasienJadwalController::class, 'show'])
       ->name('pasien.jadwalpemeriksaan.show');
       
    Route::get('/profilsaya', [ProfilController::class, 'index'])

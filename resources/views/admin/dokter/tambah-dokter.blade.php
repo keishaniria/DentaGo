@@ -9,7 +9,7 @@
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    max-width: 800px;  /* Sedang, tidak terlalu kecil */
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -91,7 +91,7 @@
 
             <div class="mb-3">
                 <label class="form-label pastel-label" for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
+                <input type="text" class="form-control" id="username" name="username" required>
             </div>
 
             <div class="mb-3">

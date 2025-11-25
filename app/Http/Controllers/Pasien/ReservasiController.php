@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\pasien\Pasien;
 use App\Models\dokter\Jadwal;
-use App\Models\Pasien\Reservasi;
+use App\Models\pasien\Reservasi;
+use App\Models\admin\Dokter;
 use App\Models\Dokter\DokterJadwalPraktek;
 
 class ReservasiController extends Controller
@@ -38,10 +39,11 @@ class ReservasiController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'tanggal_reservasi' => 'required|date',
             'jam' => 'required|date_format:H:i',
-            'id_dokter' => 'required|exists:dokters,id',
+            'id_dokter' => 'required',
         ]);
 
         $user = auth()->user();
@@ -51,19 +53,13 @@ class ReservasiController extends Controller
             return redirect()->route('pasien.reservasi')
                 ->with('error', 'Silahkan lengkapi profil terlebih dahulu sebelum melakukan reservasi.');
         }
-        
-        $request->validate([
-            'tanggal_reservasi' => 'required|date', 
-            'jam' => 'required|date_format:H:i|after_or_equal:07:00|before_or_equal:16:00',
-            'status' => 'nullable|string|in:menunggu,proses,selesai,batal'
-        ]);
 
         Reservasi::create([
             'id_pasien' => $pasien->id,
-            'id_dokter' => $request->id_dokter,
+            'id_dokter' => $dokter->id,
             'tanggal_reservasi' => $request->tanggal_reservasi,
             'jam' => $request->jam,
-            'status' => 'menunggu'
+            'status' => 'Menunggu'
         ]);
 
         return redirect()->route('pasien.jadwalpemeriksaan')->with('success', 'Reservasi berhasil!');
@@ -94,7 +90,7 @@ class ReservasiController extends Controller
     public function selesai($id)
     {
         $r = Reservasi::findOrFail($id);
-        $r->status = 'Proses';
+        $r->status = 'Selesai';
         $r->save();
 
         Jadwal::updateOrCreate(
@@ -105,7 +101,7 @@ class ReservasiController extends Controller
                 'tanggal' => $r->tanggal_reservasi,
                 'jam' => $r->jam,
                 'jenis_pemeriksaan' => null,
-                'status' => 'Proses',
+                'status' => 'Selesai',
             ]
         );
 
