@@ -23,7 +23,6 @@ class Jadwal extends Model
         'jam',
         'jam_mulai',
         'jam_selesai',
-        'jenis_pemeriksaan',
         'status',
     ];
 

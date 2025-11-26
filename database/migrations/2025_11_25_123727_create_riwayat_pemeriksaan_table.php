@@ -13,20 +13,23 @@ return new class extends Migration
     {
         Schema::create('riwayat_pemeriksaan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_pemeriksaan');
+
+            $table->unsignedBigInteger('id_pemeriksaan')->nullable();
             $table->unsignedBigInteger('id_pasien');
             $table->unsignedBigInteger('id_dokter')->nullable();
-
             $table->text('keluhan')->nullable();
             $table->text('diagnosa')->nullable();
             $table->text('tindakan')->nullable();
-
-            $table->longText('resep')->nullable();
+            $table->json('resep')->nullable();
             $table->date('tanggal_pemeriksaan')->nullable();
             $table->string('foto_kondisi_gigi')->nullable();
+
             $table->timestamps();
 
+            // foreign key
             $table->foreign('id_pemeriksaan')->references('id')->on('pemeriksaans')->onDelete('cascade');
+            $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
+            $table->foreign('id_dokter')->references('id')->on('dokters')->onDelete('cascade');
         });
     }
 
