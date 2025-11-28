@@ -11,22 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('riwayat_pemeriksaan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_pemeriksaan');
+
+            $table->unsignedBigInteger('id_pemeriksaan')->nullable();
             $table->unsignedBigInteger('id_pasien');
             $table->unsignedBigInteger('id_dokter')->nullable();
-
             $table->text('keluhan')->nullable();
             $table->text('diagnosa')->nullable();
             $table->text('tindakan')->nullable();
-
             $table->longText('resep')->nullable();
             $table->date('tanggal_pemeriksaan')->nullable();
             $table->string('foto_kondisi_gigi')->nullable();
-            $table->timestamps();
+            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
             $table->foreign('id_pemeriksaan')->references('id')->on('pemeriksaans')->onDelete('cascade');
+            $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
+            $table->foreign('id_dokter')->references('id')->on('dokters')->onDelete('set null');
+            $table->foreign('id_dokter')->references('id')->on('dokters')->onDelete('cascade');
         });
     }
 

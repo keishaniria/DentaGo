@@ -10,6 +10,7 @@
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     max-width: 800px;
+    max-width: 800px;  
     margin: 0 auto;
 }
 

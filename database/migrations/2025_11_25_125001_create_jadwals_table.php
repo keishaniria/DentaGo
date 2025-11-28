@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->time('jam');
             $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal'])->default('Menunggu');
+            $table->enum('status', ['Menunggu', 'Selesai', 'Batal'])->default('Menunggu');
             $table->timestamps();
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
             $table->foreign('id_dokter')->references('id')->on('dokters')->onDelete('cascade');

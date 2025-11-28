@@ -32,6 +32,6 @@ class Pasien extends Model
 
     public function riwayatPemeriksaan()
     {
-        return $this->hasMany(RiwayatPemeriksaan::class, 'id_pasien');
+        return $this->hasMany(RiwayatPemeriksaan::class, 'id_pasien')->orderBy('tanggal_pemeriksaan', 'desc');
     }
 }
