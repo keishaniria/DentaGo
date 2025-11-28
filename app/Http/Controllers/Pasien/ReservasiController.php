@@ -22,7 +22,11 @@ class ReservasiController extends Controller
                 ->with('error', 'Silakan lengkapi data pasien terlebih dahulu.');
         }
 
-        $jadwalDokter = DokterJadwalPraktek::orderBy('tanggal', 'asc')
+         // Ambil jadwal dokter yang tidak lewat dari hari ini atau hari ini yang sudah dibuat oleh dokter
+        $today = now()->toDateString();
+
+        $jadwalDokter = DokterJadwalPraktek::whereDate('tanggal', '>=', $today)
+            ->orderBy('tanggal', 'asc')
             ->orderBy('jam_mulai', 'asc')
             ->get();
 

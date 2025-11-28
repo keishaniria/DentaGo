@@ -16,7 +16,7 @@ class JadwalPemeriksaanController extends Controller
 
         $jadwal = Jadwal::with('pasien')
             ->where('id_dokter', $dokter->id)
-            ->orderBy('jam', 'asc')
+            ->orderBy('tanggal', 'desc')
             ->get();
 
         return view('dokter.jadwal.index', compact('jadwal'));
