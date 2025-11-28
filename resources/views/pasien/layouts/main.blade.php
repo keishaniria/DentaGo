@@ -203,8 +203,6 @@
             </a>
         </li>
  
-
-    <!-- Form logout HARUS di luar <li> -->
 		<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 			@csrf
 		</form>

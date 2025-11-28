@@ -43,7 +43,7 @@ class ReservasiController extends Controller
         $request->validate([
             'tanggal_reservasi' => 'required|date',
             'jam' => 'required|date_format:H:i',
-            'id_dokter' => 'required',
+            'id_dokter' => 'required|exists:dokters,id',
         ]);
 
         $user = auth()->user();
@@ -56,7 +56,7 @@ class ReservasiController extends Controller
 
         Reservasi::create([
             'id_pasien' => $pasien->id,
-            'id_dokter' => $dokter->id,
+            'id_dokter' => $request->id_dokter,
             'tanggal_reservasi' => $request->tanggal_reservasi,
             'jam' => $request->jam,
             'status' => 'Menunggu'
@@ -65,7 +65,7 @@ class ReservasiController extends Controller
         return redirect()->route('pasien.jadwalpemeriksaan')->with('success', 'Reservasi berhasil!');
     }
 
-    public function mulai($id)
+    /**public function mulai($id)
     {
         $r = Reservasi::findOrFail($id);
         $r->status = 'Proses';
@@ -120,5 +120,5 @@ class ReservasiController extends Controller
         $r->save();
 
         return back()->with('success', 'Reservasi dibatalkan');
-    }
+    }**/
 }

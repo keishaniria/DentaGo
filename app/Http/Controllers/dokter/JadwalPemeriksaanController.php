@@ -26,11 +26,9 @@ class JadwalPemeriksaanController extends Controller
     {
         $jadwal = Jadwal::findOrFail($id);
 
-        // Update status di jadwal
         $jadwal->status = $request->status;
         $jadwal->save();
 
-        // Update reservasi juga
         if ($jadwal->id_reservasi) {
             $reservasi = Reservasi::find($jadwal->id_reservasi);
             if ($reservasi) {

@@ -3,23 +3,19 @@
 @section('title', 'Edit Profil')
 
 @section('content')
-<style>
-    :root {
-        --bs-primary: #bce0d1 !important;
-        --bs-primary-rgb: 188, 224, 209 !important;
-    }
 
+<style>
     .text-primary {
-        color: var(--bs-primary) !important;
+        color: #bce0d1 !important;
     }
 
     .border-primary {
-        border-color: var(--bs-primary) !important;
+        border-color: #bce0d1 !important;
     }
 
     .btn-primary {
-        background-color: var(--bs-primary) !important;
-        border-color: var(--bs-primary) !important;
+        background-color: #bce0d1 !important;
+        border-color: #bce0d1 !important;
         color: #fff !important; 
         font-weight: 600;
     }
@@ -29,12 +25,13 @@
         border-color: #a7cdbc !important;
         color: #fff !important;
     }
-	
+
     .text-primary i,
     h5.text-primary i {
-        color: var(--bs-primary) !important;
+        color: #bce0d1 !important;
     }
 </style>
+
 
 <div class="container-fluid">
 	<div class="card shadow-sm border-0 rounded-4 p-4 mx-auto" style="max-width: 850px;">
@@ -55,7 +52,7 @@
 				<div class="col-md-8">
 					<div class="mb-3">
 						<label class="form-label">Nama</label>
-						<input type="text" id="nama_pasien" name="nama_pasien" class="form-control" value="{{ optional($pasien)->nama_pasien }}">
+						<input type="text" id="nama_pasien" name="nama_pasien" class="form-control" value="{{ $user->username }}">
 					</div>
 
 					<div class="mb-3">

@@ -21,7 +21,6 @@
 		color: white;
 	}
 
-	/* === SOFT BADGE COLORS === */
 	.badge-menunggu {
 		background-color: #ffe9a7 !important;
 		color: #5a4c17 !important;

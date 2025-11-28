@@ -5,29 +5,21 @@
 @section('content')
 
 <style>
-    :root {
-        --bs-primary: #bce0d1 !important;
-        --bs-primary-rgb: 188, 224, 209 !important;
-
-        --bs-danger: #f8c6c6 !important;
-        --bs-danger-rgb: 248, 198, 198 !important;
-    }
-
     .text-primary {
-        color: var(--bs-primary) !important;
+        color: #bce0d1 !important;
     }
 
     .bg-primary {
-        background-color: var(--bs-primary) !important;
+        background-color: #bce0d1 !important;
     }
 
     .border-primary {
-        border-color: var(--bs-primary) !important;
+        border-color: #bce0d1 !important;
     }
 
     .btn-primary {
-        background-color: var(--bs-primary) !important;
-        border-color: var(--bs-primary) !important;
+        background-color: #bce0d1 !important;
+        border-color: #bce0d1 !important;
         color: #000 !important;
         font-weight: 600;
     }
@@ -100,7 +92,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-4 text-center">
-						<img src="{{ $pasien->foto_pasien ? asset('storage/' . $pasien->foto_pasien) : 'https://via.placeholder.com/170'}}" 
+						<img src="{{ optional($pasien)->foto_pasien ? asset('storage/' . $pasien->foto_pasien) : 'https://via.placeholder.com/170'}}" 
                              class="rounded-4 shadow-sm mb-3" 
                              style="width: 170px; height: 170px; object-fit: cover;" 
                              alt="Foto Profil">
@@ -110,7 +102,7 @@
 
 						<div class="mb-3">
 							<label class="text-secondary small fw-semibold">Nama</label>
-							<div class="fw-medium fs-6 text-dark">{{ $pasien->nama_pasien }}</div>
+							<div class="fw-medium fs-6 text-dark">{{ $user->username }}</div>
 						</div>
 
 						<div class="mb-3">

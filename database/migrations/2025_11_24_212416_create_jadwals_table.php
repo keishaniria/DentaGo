@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_reservasi')->nullable();
             $table->date('tanggal');
             $table->time('jam');
-            $table->string('jenis_pemeriksaan')->nullable();
             $table->enum('status', ['Menunggu', 'Proses', 'Selesai', 'Batal'])->default('Menunggu');
             $table->timestamps();
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');

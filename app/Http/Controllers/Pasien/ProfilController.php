@@ -7,23 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Pasien\Pasien;
 use App\Models\pasien\Reservasi;
 use App\Models\dokter\Pemeriksaan;
+use App\Models\dokter\RiwayatPemeriksaan;
 use Illuminate\Support\Facades\Auth;
 
 class ProfilController extends Controller
 {
     public function index() {
         $user = Auth::user();
-
-        if(!$user->pasien) {
-            $user->pasien()->create([
-                'nama_pasien' => $user->username,
-                'jenis_kelamin' => null,
-                'tanggal_lahir' => null,
-                'alamat' => null,
-                'no_telepon' => null,
-                'foto_pasien' => null,
-            ]);
-        }
 
         $pasien = $user->pasien;
         return view('pasien.profilesaya', compact('user', 'pasien'));
@@ -39,6 +29,17 @@ class ProfilController extends Controller
     public function update(Request $request) {
         $user = Auth::user();
         $pasien = $user->pasien;
+
+         if (!$pasien) {
+            $pasien = $user->pasien()->create([
+                'nama_pasien' => $user->username,
+                'jenis_kelamin' => null,
+                'tanggal_lahir' => null,
+                'alamat' => null,
+                'no_telepon' => null,
+                'foto_pasien' => null,
+            ]);
+        }
 
         $request->validate([
             'foto_pasien' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -85,6 +86,10 @@ class ProfilController extends Controller
         }
 
         if ($pasien && method_exists($pasien, 'pemeriksaan')) {
+            $pasien->pemeriksaan()->delete();
+        }
+
+        if ($pasien && method_exists($pasien, 'riwayat_pemeriksaan')) {
             $pasien->pemeriksaan()->delete();
         }
 

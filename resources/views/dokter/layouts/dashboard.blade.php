@@ -168,7 +168,7 @@
             @endphp
 
             <img
-                src="{{ $user->foto_dokter ? asset('images/' . $user->foto_dokter) : asset('images/foto_dokter.jpg') }}"
+                src="{{  optional($user)->foto_dokter ? asset('images/' . $user->foto_dokter) : asset('images/foto_dokter.jpg') }}"
                 alt="Foto Dokter"
                 class="rounded-circle"
                 style="width: 40px; height: 40px; object-fit: cover;">
